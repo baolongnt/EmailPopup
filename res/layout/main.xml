@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+<Button
+    android:id="@+id/test_button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Test"
+    />
+<EditText
+    android:id="@+id/email_edit_text"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:text="anhthu@nguyentrong.com"/>
+<Button
+    android:id="@+id/search_button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Search"
+    />
+<Button
+    android:id="@+id/view_email_button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="View Email"
+    />
+</LinearLayout>
+

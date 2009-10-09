@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Email Popup</string>
+    <string name="notification_title">New Email</string>
+    <string name="on_off_switch_preference">On\Off</string>
+    <string name="on_switch_preference">Email Popup is 'On'</string>
+    <string name="off_switch_preference">Email Popup is 'Off'</string>
+    <string name="all_filtering_preference">Popup email from all</string>
+    <string name="contact_only_filtering_preference">Only popup email from phone contact</string>
+    <string name="contact_with_photo_only_filtering_preference">Only popup email from contact with photo</string>
+    <string name="test_menu_option">Test</string>
+</resources>

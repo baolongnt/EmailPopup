@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="contactFilterEntries">
+        <item>All</item>
+        <item>Contact Only</item>
+        <item>Contact With Photo Only</item>
+    </array>
+    <array name="contactFilterEntryValues">
+        <item>All</item>
+        <item>ContactOnly</item>
+        <item>ContactWithPhotoOnly</item>
+    </array>
+</resources>

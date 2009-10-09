@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<PreferenceCategory android:title="General">
+		<CheckBoxPreference
+			android:title="On/Off"
+			android:defaultValue="true"
+			android:summary="@string/on_switch_preference"
+			android:key="onOffSwitch" />
+	</PreferenceCategory>
+	<PreferenceCategory android:title="Filtering">
+		<ListPreference
+			android:title="Contact Filtering"
+			android:summary="Popup for 'All' emails"
+			android:key="contactFiltering"
+			android:defaultValue="All"
+			android:entries="@array/contactFilterEntries"
+			android:entryValues="@array/contactFilterEntryValues" />
+	</PreferenceCategory>
+</PreferenceScreen>
