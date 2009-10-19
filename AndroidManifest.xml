@@ -21,12 +21,13 @@
         </activity>
         <activity 
             android:name=".EmailNotification"
+            android:icon="@drawable/icon"
             android:theme="@android:style/Theme.Dialog" >
             <intent-filter>
                 <action android:name="com.blntsoft.emailpopup.intent.action.VIEW" />
                 <data
                     android:scheme="email"
-                    android:path="/messages/*"
+                    android:host="messages"
                 />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -36,10 +37,15 @@
                 <action android:name="com.android.email.intent.action.EMAIL_RECEIVED" />
                 <data
                     android:scheme="email"
-                    android:path="/messages/*"
+                    android:host="messages"
                 />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
+        <service
+            android:name=".EmailPopupService"
+            android:enabled="true"
+            >
+        </service>
     </application>
 </manifest> 

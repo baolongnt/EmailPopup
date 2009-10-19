@@ -25,7 +25,7 @@ public class KeyguardManager {
             }
         }
         else {
-            Log.v(EmailPopup.LOG_TAG, "Keyguard was alearedy disabled");
+            Log.v(EmailPopup.LOG_TAG, "Keyguard was already disabled");
         }
     }
 
@@ -36,7 +36,17 @@ public class KeyguardManager {
             Log.d(EmailPopup.LOG_TAG, "Keyguard reenabled");
         }
         else {
-            Log.v(EmailPopup.LOG_TAG, "Keyguard was not disabled");
+            Log.v(EmailPopup.LOG_TAG, "Keyguard was alredy reenabled");
+        }
+    }
+
+    static synchronized boolean isEnabled(Context context) {
+        if (keyguardLock!=null) {
+            return true;
+        }
+        else {
+            android.app.KeyguardManager keyguardManager = (android.app.KeyguardManager)context.getSystemService(Context.KEYGUARD_SERVICE);
+            return keyguardManager.inKeyguardRestrictedInputMode();
         }
     }
 

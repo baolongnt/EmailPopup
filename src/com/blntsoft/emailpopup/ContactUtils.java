@@ -1,10 +1,12 @@
 package com.blntsoft.emailpopup;
 
+import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.Contacts;
+import android.provider.Contacts.People;
 import android.util.Log;
 
 /**
@@ -108,5 +110,43 @@ public class ContactUtils {
             );
         }
     }//getContactPhotoById
+
+    public static boolean isContactStarred(Context context, long id) {
+        int isStarred;
+        Cursor cursor = context.getContentResolver().query(
+            ContentUris.withAppendedId(People.CONTENT_URI, id),
+            new String[] { Contacts.PeopleColumns.STARRED },
+            null,
+            null,
+            null);
+
+        if (cursor != null) {
+            try {
+                if (cursor.getCount() > 0) {
+                    cursor.moveToFirst();
+                    isStarred = Integer.valueOf(cursor.getInt(0));
+                    Log.d(EmailPopup.LOG_TAG, "Is contact starred: " + id + "=> " + isStarred);
+                }
+                else {
+                    Log.v(EmailPopup.LOG_TAG, "Count = 0");
+                    isStarred = -1;
+                }
+            }
+            finally {
+                cursor.close();
+            }
+        }
+        else {
+            Log.v(EmailPopup.LOG_TAG, "Cursor is null");
+            isStarred = -1;
+        }
+
+        if (isStarred==1) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }//isContactStarred
 
 }//ContactUtils

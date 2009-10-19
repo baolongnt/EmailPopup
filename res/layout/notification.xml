@@ -37,7 +37,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerVertical="true"
         android:paddingRight="5sp"
-        android:src="@android:drawable/ic_dialog_info"
+        android:src="@+drawable/icon"
     />
     <TextView
         android:layout_width="fill_parent"

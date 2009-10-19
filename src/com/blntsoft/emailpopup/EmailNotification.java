@@ -2,9 +2,11 @@ package com.blntsoft.emailpopup;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,9 +22,10 @@ public class EmailNotification
     extends Activity
     implements OnClickListener, Runnable {
 
-    static final String EMAIL_MESSAGE_EXTRA             = "EMAIL_MESSAGE_EXTRA";
-
     private EmailMessage message;
+    private Bitmap contactPhoto;
+    private boolean isDestroyed;
+    
     private ImageView photoImageView;
     private TextView fromTextView;
     private TextView subjectTextView;
@@ -34,8 +37,6 @@ public class EmailNotification
 
         super.onCreate(savedInstanceState);
 
-        WakeLockManager.acquirePartialWakeLock(this);
-
         setContentView(R.layout.notification);
 
         photoImageView = (ImageView)findViewById(R.id.sender_photo);
@@ -46,7 +47,7 @@ public class EmailNotification
         okButton.setOnClickListener(this);
 
         Intent intent = getIntent();
-        message = (EmailMessage)intent.getSerializableExtra(EMAIL_MESSAGE_EXTRA);
+        message = (EmailMessage)intent.getSerializableExtra(EmailPopup.EMAIL_MESSAGE_EXTRA);
         if (message.senderName!=null) {
             fromTextView.setText(message.senderName + " <" + message.senderEmail + ">");
         }
@@ -59,11 +60,10 @@ public class EmailNotification
             new FetchContactPhotoTask().execute();
         }
 
-        setTitle(R.string.notification_title);
+        setTitle(getString(R.string.notification_title, message.account));
 
+        isDestroyed = false;
         new Thread(this).start();
-
-        WakeLockManager.acquireFullWakeLock(this);
     }//onCreate
 
     @Override
@@ -73,25 +73,33 @@ public class EmailNotification
         }
     }//onClick
 
+    @Override
+    public void onDestroy() {
+        Log.e(EmailPopup.LOG_TAG, "EmailNotification.onDestroy()");
+        isDestroyed = true;
+        super.onDestroy();
+    }
+
     private void close() {
-        KeyguardManager.reenableKeyguard();
-        WakeLockManager.releaseAllWakeLocks();
+        Log.e(EmailPopup.LOG_TAG, "EmailNotification.close()");
         finish();
     }//close
 
     @Override
     public void run() {
         try {
-            Thread.sleep(5000);
-            close();
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(EmailNotification.this);
+            int displayTime = Integer.parseInt(preferences.getString(Preferences.TIME_DISPLAY_PREF_KEY, getString(R.string.time_display_preference_default)));
+            Thread.sleep((int)(displayTime * 1000 * 1.1));
+            if (!isDestroyed) {
+                close();
+            }
         }
-        catch (InterruptedException e) {
+        catch (Exception e) {
             Log.e(EmailPopup.LOG_TAG, null, e);
         }
     }//run
 
-    Bitmap contactPhoto;
-    
     private class FetchContactPhotoTask extends AsyncTask<String, Integer, Bitmap> {
         @Override
         protected Bitmap doInBackground(String... params) {

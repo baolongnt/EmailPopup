@@ -33,8 +33,7 @@ public class WakeLockManager {
         if (fullWakeLock==null) {
             fullWakeLock = powerManager.newWakeLock(
                 PowerManager.SCREEN_BRIGHT_WAKE_LOCK
-                    | PowerManager.ACQUIRE_CAUSES_WAKEUP
-                    | PowerManager.ON_AFTER_RELEASE,
+                    | PowerManager.ACQUIRE_CAUSES_WAKEUP,
                 EmailPopup.LOG_TAG);
             fullWakeLock.acquire();
             Log.d(EmailPopup.LOG_TAG, "Full wakeLock acquired");

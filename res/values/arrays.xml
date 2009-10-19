@@ -2,12 +2,34 @@
 <resources>
     <array name="contactFilterEntries">
         <item>All</item>
-        <item>Contact Only</item>
-        <item>Contact With Photo Only</item>
+        <item>Contacts Only</item>
+        <item>Starred Contacts Only</item>
     </array>
     <array name="contactFilterEntryValues">
         <item>All</item>
-        <item>ContactOnly</item>
-        <item>ContactWithPhotoOnly</item>
+        <item>ContactsOnly</item>
+        <item>StarredContactsOnly</item>
     </array>
+    <string-array name="timeDisplayEntries">
+        <item>2 sec.</item>
+        <item>3 sec.</item>
+        <item>4 sec.</item>
+        <item>5 sec.</item>
+        <item>6 sec.</item>
+        <item>7 sec.</item>
+        <item>8 sec.</item>
+        <item>9 sec.</item>
+        <item>10 sec.</item>
+    </string-array>
+    <string-array name="timeDisplayEntryValues">
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
 </resources>

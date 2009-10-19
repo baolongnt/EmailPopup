@@ -61,22 +61,30 @@ public class Main
                 @Override
                 public void run() {
                     try {
-                        Thread.sleep(2000);
+                        Thread.sleep(2500);
                     }
                     catch (InterruptedException e) {
                         Log.e(EmailPopup.LOG_TAG, null, e);
                     }
 
-                    Uri uri = Uri.parse("email://messages/2/Inbox/456");
-                    Intent intent = new Intent(EmailPopup.ACTION_EMAIL_RECEIVED, uri);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra(EmailPopup.EXTRA_FROM, "TEST SENDER 2 <test2@test.com>");
-                    intent.putExtra(EmailPopup.EXTRA_FOLDER, "Inbox");
-                    intent.putExtra(EmailPopup.EXTRA_SUBJECT, "TEST SUBJECT 2");
-                    Main.this.sendBroadcast(intent);
-                    Log.e(EmailPopup.LOG_TAG, "2nd broadcast sent");
+                    for (int i=0; i<5; i++) {
+                        try {
+                            Thread.sleep(500);
+                        }
+                        catch (InterruptedException e) {
+                            Log.e(EmailPopup.LOG_TAG, null, e);
+                        }
 
-                    //Toast.makeText(Main.this, "Broadcasts sent", Toast.LENGTH_SHORT).show();
+                        Uri uri = Uri.parse("email://messages/2/Inbox/"+1);
+                        Intent intent = new Intent(EmailPopup.ACTION_EMAIL_RECEIVED, uri);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra(EmailPopup.EXTRA_ACCOUNT, "TEST");
+                        intent.putExtra(EmailPopup.EXTRA_FROM, "TEST SENDER " + i + " <test@test.com>");
+                        intent.putExtra(EmailPopup.EXTRA_FOLDER, "Inbox");
+                        intent.putExtra(EmailPopup.EXTRA_SUBJECT, "TEST SUBJECT " + i);
+                        Main.this.sendBroadcast(intent);
+                        Log.e(EmailPopup.LOG_TAG, i + "th broadcast sent");
+                    }
                 }//run
             };//Thread
             t.setPriority(Thread.MIN_PRIORITY);
@@ -88,9 +96,13 @@ public class Main
 
             long contactId = ContactUtils.getIdByEmailAddress(this, email);
             Toast.makeText(this, "Contact id: " + contactId, Toast.LENGTH_SHORT).show();
+
+            boolean starred = ContactUtils.isContactStarred(this, contactId);
+            Toast.makeText(this, "Contact Starred: " + starred, Toast.LENGTH_SHORT).show();
         }
         else {
-            Intent intent = new Intent("android.intent.action.VIEW", Uri.parse("email://messages/0/INBOX/1255020785.890845.m1gemini00-01.prod.mesa1.1091393888"));
+            //Intent intent = new Intent("android.intent.action.VIEW", Uri.parse("email://messages/0/INBOX/1255020785.890845.m1gemini00-01.prod.mesa1.1091393888"));
+            Intent intent = new Intent("android.intent.action.VIEW", Uri.parse("email://messages/0/INBOX/1255020785.890845.m1gemini00-01.prod.mesa1.109139388"));
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             this.startActivity(intent);
         }//if testButton

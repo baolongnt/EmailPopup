@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import java.util.Date;
 
 public class EmailReceiver extends BroadcastReceiver  {
 
@@ -45,6 +46,12 @@ public class EmailReceiver extends BroadcastReceiver  {
                 return;
             }
 
+            if (preferences.getBoolean(Preferences.KEYGUARD_FILTERING_PREF_KEY, false)
+                && !KeyguardManager.isEnabled(context)) {
+                Log.d(EmailPopup.LOG_TAG, "Email Popup only if keyguard is enabled --> No popup");
+                return;
+            }
+
             for (String f : IGNORE_FOLDER_NAMES) {
                 if (f.equalsIgnoreCase(folderName)) {
                     Log.d(EmailPopup.LOG_TAG, "Ignoring email from folder: " + folderName);
@@ -65,39 +72,30 @@ public class EmailReceiver extends BroadcastReceiver  {
             }
 
             Log.d(EmailPopup.LOG_TAG, "contactId: " + contactId);
-            if (Preferences.CONTACT_FILTERING_PREF_VALUE.equals(contactFiltering)
+            if (Preferences.CONTACTS_FILTERING_PREF_VALUE.equals(contactFiltering)
                 && contactId==-1) {
                 Log.d(EmailPopup.LOG_TAG, "Contact only --> No popup");
                 WakeLockManager.releasePartialWakeLock();
                 return;
             }
 
-            Bitmap photo;
-            if (contactId!=-1) {
-                photo = ContactUtils.getContactPhotoById(context, contactId);
-            }
-            else {
-                photo = null;
-            }
-            
-            if (Preferences.PHOTO_FILTERING_PREF_VALUE.equals(contactFiltering)
-                && photo==null) {
-                Log.d(EmailPopup.LOG_TAG, "Contact with photo only --> No popup");
+            if (Preferences.STARRED_CONTACT_FILTERING_PREF_VALUE.equals(contactFiltering)
+                && !ContactUtils.isContactStarred(context, contactId)) {
+                Log.d(EmailPopup.LOG_TAG, "Not starred contact --> No popup");
                 return;
             }
 
             EmailMessage message = new EmailMessage();
+            message.account = intent.getStringExtra(EmailPopup.EXTRA_ACCOUNT);
+            message.uriString = intent.getData().toString();
             message.subject = subject;
             message.senderName = fromAddress.mPersonal;
             message.senderEmail = fromAddress.mAddress;
             message.contactId = contactId;
 
-            KeyguardManager.disableKeyguard(context);
-
-            Intent i = new Intent(EmailPopup.ACTION_NOTIFICATION_VIEW, intent.getData(), context, EmailNotification.class);
-            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            i.putExtra(EmailNotification.EMAIL_MESSAGE_EXTRA, message);
-            context.startActivity(i);
+            Intent i = new Intent(context, EmailPopupService.class);
+            i.putExtra(EmailPopup.EMAIL_MESSAGE_EXTRA, message);
+            context.startService(i);
         }//if intent action
     }//onReceive
 

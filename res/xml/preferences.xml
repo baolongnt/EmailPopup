@@ -7,7 +7,21 @@
 			android:summary="@string/on_switch_preference"
 			android:key="onOffSwitch" />
 	</PreferenceCategory>
-	<PreferenceCategory android:title="Filtering">
+	<PreferenceCategory android:title="@string/display_pref_category">
+		<ListPreference
+			android:title="@string/time_display_preference_title"
+			android:summary="@string/time_display_preference_summary_default"
+			android:key="timeDisplay"
+			android:defaultValue="@string/time_display_preference_default"
+            android:entries="@array/timeDisplayEntries"
+			android:entryValues="@array/timeDisplayEntryValues" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Filtering">
+		<CheckBoxPreference
+			android:title="Keyguard Filtering"
+			android:defaultValue="off"
+			android:summary="@string/off_keyguard_preference"
+			android:key="keyguardFiltering" />
 		<ListPreference
 			android:title="Contact Filtering"
 			android:summary="Popup for 'All' emails"

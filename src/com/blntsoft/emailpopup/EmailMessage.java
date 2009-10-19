@@ -1,6 +1,7 @@
 package com.blntsoft.emailpopup;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  *
@@ -9,6 +10,8 @@ import java.io.Serializable;
 public class EmailMessage
     implements Serializable {
 
+    String account;
+    String uriString;
     String subject;
     String senderName;
     String senderEmail;

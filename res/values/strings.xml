@@ -1,12 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Email Popup</string>
-    <string name="notification_title">New Email</string>
+
+    <!-- Notification -->
+    
+    <string name="notification_title">New Email: %s</string>
+
+    <!-- Preferences -->
+
+    <string name="test_menu_option">Test</string>
+    <string name="about_menu_option">About</string>
+
+    <!-- Filtering Preferences -->
+
     <string name="on_off_switch_preference">On\Off</string>
     <string name="on_switch_preference">Email Popup is 'On'</string>
     <string name="off_switch_preference">Email Popup is 'Off'</string>
-    <string name="all_filtering_preference">Popup email from all</string>
-    <string name="contact_only_filtering_preference">Only popup email from phone contact</string>
-    <string name="contact_with_photo_only_filtering_preference">Only popup email from contact with photo</string>
-    <string name="test_menu_option">Test</string>
+    <string name="all_filtering_preference">Popup emails from all</string>
+    <string name="contacts_only_filtering_preference">Only popup emails from phone contacts</string>
+    <string name="starred_contacts_only_filtering_preference">Only popup emails from starred contacts</string>
+    <string name="on_keyguard_preference">Only popup emails when the keyguard is on</string>
+    <string name="off_keyguard_preference">Always popup emails</string>
+
+    <!-- Display Preferences -->
+
+    <string name="display_pref_category">Display</string>
+    <string name="time_display_preference_title">Time</string>
+    <string name="time_display_preference_default">5</string>
+    <string name="time_display_preference_summary_default">Popup will display for 5  sec.</string>
+    <string name="time_display_preference_summary">Popup will display for %s sec.</string>
 </resources>
+
