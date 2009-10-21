@@ -26,7 +26,6 @@ public class EmailPopupService
         return  null;
     }
 
-
     @Override
     public void onStart (Intent intent, int startId) {
         Log.e(EmailPopup.LOG_TAG, "onStart()");

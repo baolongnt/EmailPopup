@@ -4,7 +4,7 @@
 
     <!-- Notification -->
     
-    <string name="notification_title">New Email: %s</string>
+    <string name="notification_title">New Email</string>
 
     <!-- Preferences -->
 

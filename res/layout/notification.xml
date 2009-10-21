@@ -37,7 +37,9 @@
         android:layout_alignParentTop="true"
         android:layout_centerVertical="true"
         android:paddingRight="5sp"
-        android:src="@+drawable/icon"
+        android:maxHeight="96px"
+        android:maxWidth="96px"
+        android:src="@+drawable/ic_contact_picture"
     />
     <TextView
         android:layout_width="fill_parent"

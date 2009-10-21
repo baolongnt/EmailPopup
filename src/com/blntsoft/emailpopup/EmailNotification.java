@@ -10,6 +10,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,7 +38,12 @@ public class EmailNotification
 
         super.onCreate(savedInstanceState);
 
+        Window w = getWindow();
+        w.requestFeature(Window.FEATURE_LEFT_ICON);
+
         setContentView(R.layout.notification);
+        
+        w.setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.icon);
 
         photoImageView = (ImageView)findViewById(R.id.sender_photo);
         fromTextView = (TextView)findViewById(R.id.from);
@@ -60,7 +66,12 @@ public class EmailNotification
             new FetchContactPhotoTask().execute();
         }
 
-        setTitle(getString(R.string.notification_title, message.account));
+        if (message.account!=null) {
+            setTitle(message.account);
+        }
+        else {
+            setTitle(R.string.notification_title);
+        }
 
         isDestroyed = false;
         new Thread(this).start();
@@ -113,9 +124,6 @@ public class EmailNotification
             contactPhoto = result;
             if (result != null) {
                 photoImageView.setImageBitmap(contactPhoto);
-            }
-            else {
-                photoImageView.setImageDrawable(EmailNotification.this.getResources().getDrawable(android.R.drawable.ic_dialog_info));
             }
         }
     }//FetchContactPhotoTask

@@ -125,14 +125,15 @@ public class Preferences
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            /*
             case R.id.test_menu:
                 Intent intent = new Intent(this, Main.class);
                 startActivity(intent);
-                break;
+                return true;
+            */
             default:
                 return super.onOptionsItemSelected(item);
         }
-        return true;
     }
 
 }//Preferences

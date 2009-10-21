@@ -79,7 +79,7 @@ public class Main
                         Intent intent = new Intent(EmailPopup.ACTION_EMAIL_RECEIVED, uri);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.putExtra(EmailPopup.EXTRA_ACCOUNT, "TEST");
-                        intent.putExtra(EmailPopup.EXTRA_FROM, "TEST SENDER " + i + " <test@test.com>");
+                        intent.putExtra(EmailPopup.EXTRA_FROM, "TEST SENDER " + i + " <baolongnt@nguyentrong.com>");
                         intent.putExtra(EmailPopup.EXTRA_FOLDER, "Inbox");
                         intent.putExtra(EmailPopup.EXTRA_SUBJECT, "TEST SUBJECT " + i);
                         Main.this.sendBroadcast(intent);
