@@ -51,7 +51,7 @@ public class Main
             uri = Uri.parse("email://messages/1/Inbox/123");
             intent = new Intent(EmailPopup.ACTION_EMAIL_RECEIVED, uri);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.putExtra(EmailPopup.EXTRA_FROM, "anhthu@nguyentrong.com");
+            intent.putExtra(EmailPopup.EXTRA_FROM, "PUTAIN!!! <anhthu@nguyentrong.com>");
             intent.putExtra(EmailPopup.EXTRA_FOLDER, "Inbox");
             intent.putExtra(EmailPopup.EXTRA_SUBJECT, "TEST SUBJECT");
             this.sendBroadcast(intent);
@@ -79,9 +79,9 @@ public class Main
                         Intent intent = new Intent(EmailPopup.ACTION_EMAIL_RECEIVED, uri);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.putExtra(EmailPopup.EXTRA_ACCOUNT, "TEST");
-                        intent.putExtra(EmailPopup.EXTRA_FROM, "TEST SENDER " + i + " <baolongnt@nguyentrong.com>");
+                        intent.putExtra(EmailPopup.EXTRA_FROM, "May the Force be with you <emailpopup@blntsoft.com>");
                         intent.putExtra(EmailPopup.EXTRA_FOLDER, "Inbox");
-                        intent.putExtra(EmailPopup.EXTRA_SUBJECT, "TEST SUBJECT " + i);
+                        intent.putExtra(EmailPopup.EXTRA_SUBJECT, "Email Popup Rocks!!! " + i);
                         Main.this.sendBroadcast(intent);
                         Log.e(EmailPopup.LOG_TAG, i + "th broadcast sent");
                     }
@@ -97,8 +97,10 @@ public class Main
             long contactId = ContactUtils.getIdByEmailAddress(this, email);
             Toast.makeText(this, "Contact id: " + contactId, Toast.LENGTH_SHORT).show();
 
-            boolean starred = ContactUtils.isContactStarred(this, contactId);
-            Toast.makeText(this, "Contact Starred: " + starred, Toast.LENGTH_SHORT).show();
+            if (contactId!=-1) {
+                boolean starred = ContactUtils.isContactStarred(this, contactId);
+                Toast.makeText(this, "Contact Starred: " + starred, Toast.LENGTH_SHORT).show();
+            }
         }
         else {
             //Intent intent = new Intent("android.intent.action.VIEW", Uri.parse("email://messages/0/INBOX/1255020785.890845.m1gemini00-01.prod.mesa1.1091393888"));

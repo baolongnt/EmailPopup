@@ -29,5 +29,10 @@
     <string name="time_display_preference_default">5</string>
     <string name="time_display_preference_summary_default">Popup will display for 5  sec.</string>
     <string name="time_display_preference_summary">Popup will display for %s sec.</string>
+
+    <string name="about_pref_title">About</string>
+    <string name="about_pref_summary">About Email Popup</string>
+    <string name="about_text">Author: Bao-Long Nguyen-Trong\nEmail: email-popup@blntsoft.com\nBlog: http://www.blntsoft.com/category/email-popup/\n\nEmail Popup is a simple utility that displays a short dialog every time an email is received.\n\nEmail Popup only works with K-9 Mail v2.0 and higher.</string>
+
 </resources>
 

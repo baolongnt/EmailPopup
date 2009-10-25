@@ -21,16 +21,18 @@ import android.widget.TextView;
  */
 public class EmailNotification 
     extends Activity
-    implements OnClickListener, Runnable {
+    implements Runnable {
+
+    private static final int MAX_SUBJECT_LENGTH = 140;
 
     private EmailMessage message;
-    private Bitmap contactPhoto;
     private boolean isDestroyed;
     
     private ImageView photoImageView;
-    private TextView fromTextView;
+    private TextView fromNameTextView;
+    private TextView fromEmailTextView;
     private TextView subjectTextView;
-    private Button okButton;
+    //private Button okButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,21 +48,30 @@ public class EmailNotification
         w.setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.icon);
 
         photoImageView = (ImageView)findViewById(R.id.sender_photo);
-        fromTextView = (TextView)findViewById(R.id.from);
+        fromNameTextView = (TextView)findViewById(R.id.from_name);
+        fromEmailTextView = (TextView)findViewById(R.id.from_email);
         subjectTextView = (TextView)findViewById(R.id.subject);
-        okButton = (Button)findViewById(R.id.ok_button);
+        //okButton = (Button)findViewById(R.id.ok_button);
 
-        okButton.setOnClickListener(this);
+        //okButton.setOnClickListener(this);
 
         Intent intent = getIntent();
         message = (EmailMessage)intent.getSerializableExtra(EmailPopup.EMAIL_MESSAGE_EXTRA);
-        if (message.senderName!=null) {
-            fromTextView.setText(message.senderName + " <" + message.senderEmail + ">");
+        if (message.senderName!=null
+            && !"".equals(message.senderName)) {
+            fromNameTextView.setText(message.senderName);
+            fromEmailTextView.setText(message.senderEmail);
+            fromEmailTextView.setVisibility(View.VISIBLE);
         }
         else {
-            fromTextView.setText(message.senderEmail);
+            fromNameTextView.setText(message.senderEmail);
+            fromEmailTextView.setVisibility(View.GONE);
         }
-        subjectTextView.setText(message.subject);
+        String subject = message.subject;
+        if (subject.length()>MAX_SUBJECT_LENGTH) {
+            subject = subject.substring(0, MAX_SUBJECT_LENGTH) + "...";
+        }
+        subjectTextView.setText(subject);
 
         if (message.contactId!=-1) {
             new FetchContactPhotoTask().execute();
@@ -77,12 +88,14 @@ public class EmailNotification
         new Thread(this).start();
     }//onCreate
 
+    /*
     @Override
     public void onClick(View view) {
         if (view==okButton) {
             close();
         }
     }//onClick
+     * */
 
     @Override
     public void onDestroy() {
@@ -115,15 +128,21 @@ public class EmailNotification
         @Override
         protected Bitmap doInBackground(String... params) {
             Log.v(EmailPopup.LOG_TAG, "Loading contact photo in background... " + message.contactId);
-            return ContactUtils.getContactPhotoById(EmailNotification.this, message.contactId);
+            int contactResId;
+            if ((System.currentTimeMillis() % 2)==0) {
+                contactResId = R.drawable.ic_contact_picture;
+            }
+            else {
+                contactResId = R.drawable.ic_contact_picture_2;
+            }
+            return ContactUtils.getContactPhotoById(EmailNotification.this, message.contactId, contactResId);
         }
 
         @Override
         protected void onPostExecute(Bitmap result) {
             Log.v(EmailPopup.LOG_TAG, "Done loading contact photo");
-            contactPhoto = result;
             if (result != null) {
-                photoImageView.setImageBitmap(contactPhoto);
+                photoImageView.setImageBitmap(result);
             }
         }
     }//FetchContactPhotoTask

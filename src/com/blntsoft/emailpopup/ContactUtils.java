@@ -96,7 +96,7 @@ public class ContactUtils {
         }
     }//getIdByName
 
-    public static Bitmap getContactPhotoById(Context context, long id) {
+    public static Bitmap getContactPhotoById(Context context, long id, int defaultPhotoId) {
         Log.d(EmailPopup.LOG_TAG, "getContactPhotoById(): " + id);
         if (id==-1) {
             return null;
@@ -105,7 +105,7 @@ public class ContactUtils {
             return Contacts.People.loadContactPhoto(
                 context,
                 Uri.withAppendedPath(Contacts.People.CONTENT_URI, String.valueOf(id)),
-                android.R.drawable.ic_dialog_info,
+                defaultPhotoId,
                 null
             );
         }

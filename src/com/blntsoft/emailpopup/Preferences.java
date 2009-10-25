@@ -3,6 +3,8 @@ package com.blntsoft.emailpopup;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -22,6 +24,7 @@ public class Preferences
     public static final String CONTACT_FILTERING_PREF_KEY  = "contactFiltering";
     public static final String KEYGUARD_FILTERING_PREF_KEY = "keyguardFiltering";
     public static final String TIME_DISPLAY_PREF_KEY       = "timeDisplay";
+    public static final String ABOUT_PREF_KEY              = "about";
 
     public static final String ALL_FILTERING_PREF_VALUE                     = "All";
     public static final String CONTACTS_FILTERING_PREF_VALUE                = "ContactsOnly";
@@ -47,6 +50,17 @@ public class Preferences
         contactFilteringPreference = (ListPreference)getPreferenceScreen().findPreference(CONTACT_FILTERING_PREF_KEY);
         keyguardPreference = (CheckBoxPreference)getPreferenceScreen().findPreference(KEYGUARD_FILTERING_PREF_KEY);
         timeDisplayPreference = (ListPreference)getPreferenceScreen().findPreference(TIME_DISPLAY_PREF_KEY);
+
+        String version;
+        PackageManager pm = this.getPackageManager();
+        try {
+            version = " v" + pm.getPackageInfo(Preferences.class.getPackage().getName(), 0).versionName;
+        } catch (NameNotFoundException e) {
+            version = "";
+        }
+        DialogPreference aboutPreference = (DialogPreference)getPreferenceScreen().findPreference(ABOUT_PREF_KEY);
+        aboutPreference.setDialogTitle(getString(R.string.app_name) + version);
+        aboutPreference.setDialogLayoutResource(R.layout.about);
     }//onCreate
     
     @Override
@@ -125,12 +139,10 @@ public class Preferences
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            /*
             case R.id.test_menu:
                 Intent intent = new Intent(this, Main.class);
                 startActivity(intent);
                 return true;
-            */
             default:
                 return super.onOptionsItemSelected(item);
         }

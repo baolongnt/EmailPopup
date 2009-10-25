@@ -70,8 +70,8 @@ public class EmailReceiver extends BroadcastReceiver  {
                 && fromAddress.mPersonal!=null) {
                 contactId = ContactUtils.getIdByName(context, fromAddress.mPersonal);
             }
-
             Log.d(EmailPopup.LOG_TAG, "contactId: " + contactId);
+            
             if (Preferences.CONTACTS_FILTERING_PREF_VALUE.equals(contactFiltering)
                 && contactId==-1) {
                 Log.d(EmailPopup.LOG_TAG, "Contact only --> No popup");

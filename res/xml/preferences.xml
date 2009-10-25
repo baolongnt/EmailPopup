@@ -30,4 +30,13 @@
 			android:entries="@array/contactFilterEntries"
 			android:entryValues="@array/contactFilterEntryValues" />
 	</PreferenceCategory>
+    <PreferenceCategory android:title="Misc.">
+        <com.blntsoft.emailpopup.DialogPreference
+          android:key="about"
+          android:dialogIcon="@drawable/icon"
+          android:title="@string/about_pref_title"
+          android:dialogTitle="@string/app_name"
+          android:summary="@string/about_pref_summary"
+          android:negativeButtonText="@null" />
+    </PreferenceCategory>
 </PreferenceScreen>

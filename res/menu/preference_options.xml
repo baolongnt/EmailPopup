@@ -6,12 +6,10 @@
         android:title="@string/about_menu_option"
         android:icon="@android:drawable/ic_menu_info_details"
 	/>
-    <!--
 	<item
 		android:id="@+id/test_menu"
         android:alphabeticShortcut="t"
         android:title="@string/test_menu_option"
         android:icon="@android:drawable/ic_menu_preferences"
 	/>
-    -->
 </menu>

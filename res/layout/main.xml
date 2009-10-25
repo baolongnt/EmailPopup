@@ -14,7 +14,7 @@
     android:id="@+id/email_edit_text"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:text="anhthu@nguyentrong.com"/>
+    android:text="Anh-Thu Nguyen-Trong"/>
 <Button
     android:id="@+id/search_button"
     android:layout_width="wrap_content"
