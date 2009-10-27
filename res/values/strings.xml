@@ -25,14 +25,30 @@
     <!-- Display Preferences -->
 
     <string name="display_pref_category">Display</string>
-    <string name="time_display_preference_title">Time</string>
+    <string name="time_display_preference_title">Display Time</string>
     <string name="time_display_preference_default">5</string>
     <string name="time_display_preference_summary_default">Popup will display for 5  sec.</string>
     <string name="time_display_preference_summary">Popup will display for %s sec.</string>
 
     <string name="about_pref_title">About</string>
     <string name="about_pref_summary">About Email Popup</string>
-    <string name="about_text">Author: Bao-Long Nguyen-Trong\nEmail: email-popup@blntsoft.com\nBlog: http://www.blntsoft.com/category/email-popup/\n\nEmail Popup is a simple utility that displays a short dialog every time an email is received.\n\nEmail Popup only works with K-9 Mail v2.0 and higher.</string>
+    <string name="about_text">Author: Bao-Long Nguyen-Trong\n
+\n
+Email Popup is a simple utility that displays a short dialog every time an email is received.\n
+\n
+You can select how long the popup stays on and you can configure filtering so that only the emails
+important to you popup.\n
+\n
+Email Popup is is great for you leave your phone on your desk which working or studying.
+Email Popup can also be used with the phone mounted on the car dashboard which you are driving.\n
+\n
+Email Popup only works with K-9 Mail v1.106 and higher.\n
+\n
+For comments and feedback, feel free to email me at email-popup@blntsoft.com\n
+\n
+Check out the app blog for news:\n
+http://www.blntsoft.com/category/email-popup/
+</string>
 
 </resources>
 
