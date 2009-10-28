@@ -1,7 +1,6 @@
 package com.blntsoft.emailpopup;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  *
@@ -16,5 +15,6 @@ public class EmailMessage
     String senderName;
     String senderEmail;
     long contactId;
+    boolean autoClose;
 
 }//EmailMessage

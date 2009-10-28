@@ -92,6 +92,7 @@ public class EmailReceiver extends BroadcastReceiver  {
             message.senderName = fromAddress.mPersonal;
             message.senderEmail = fromAddress.mAddress;
             message.contactId = contactId;
+            message.autoClose = intent.getBooleanExtra(EmailPopup.EXTRA_AUTO_CLOSE, true);
 
             Intent i = new Intent(context, EmailPopupService.class);
             i.putExtra(EmailPopup.EMAIL_MESSAGE_EXTRA, message);

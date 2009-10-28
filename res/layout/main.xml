@@ -5,21 +5,38 @@
     android:layout_height="fill_parent"
     >
 <Button
-    android:id="@+id/test_button"
+    android:id="@+id/test_one_button"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Test"
+    android:text="Test One"
+    />
+<Button
+    android:id="@+id/test_multiple_button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Test Multiple"
     />
 <EditText
     android:id="@+id/email_edit_text"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:text="Anh-Thu Nguyen-Trong"/>
+    android:text="anhthu@nguyentrong.com"/>
 <Button
-    android:id="@+id/search_button"
+    android:id="@+id/search_by_email_button"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Search"
+    android:text="Search By Email"
+    />
+<EditText
+    android:id="@+id/name_edit_text"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:text="Anh-Thu Nguyen"/>
+<Button
+    android:id="@+id/search_by_name_button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Search By Name"
     />
 <Button
     android:id="@+id/view_email_button"

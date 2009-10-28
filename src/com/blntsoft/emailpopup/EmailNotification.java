@@ -85,7 +85,9 @@ public class EmailNotification
         }
 
         isDestroyed = false;
-        new Thread(this).start();
+        if (message.autoClose) {
+            new Thread(this).start();
+        }
     }//onCreate
 
     /*

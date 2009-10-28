@@ -39,15 +39,20 @@ Email Popup is a simple utility that displays a short dialog every time an email
 You can select how long the popup stays on and you can configure filtering so that only the emails
 important to you popup.\n
 \n
-Email Popup is is great for you leave your phone on your desk which working or studying.
-Email Popup can also be used with the phone mounted on the car dashboard which you are driving.\n
+Use Email Popup when you are working or studying by leaving your phone on your desk.
+Email Popup can also be used with the phone mounted on the car dashboard when driving.
+Finally, it is great to see incoming emails unnoticed during meetings.\n
 \n
-Email Popup only works with K-9 Mail v1.106 and higher.\n
+Email Popup only works with K-9 Mail v1.106 and higher.
+It does not work with Gmail unless you get your Gmail messages using K-9 Mail.\n
+\n
+For more info:\n
+http://www.blntsoft.com/email-popup\n
 \n
 For comments and feedback, feel free to email me at email-popup@blntsoft.com\n
 \n
 Check out the app blog for news:\n
-http://www.blntsoft.com/category/email-popup/
+http://www.blntsoft.com/category/email-popup\n
 </string>
 
 </resources>

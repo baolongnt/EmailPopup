@@ -19,6 +19,7 @@ public class EmailPopup {
     public static final String EXTRA_CC         = "com.android.email.intent.extra.CC";
     public static final String EXTRA_BCC        = "com.android.email.intent.extra.BCC";
     public static final String EXTRA_SUBJECT    = "com.android.email.intent.extra.SUBJECT";
+    public static final String EXTRA_AUTO_CLOSE = "com.android.email.intent.extra.AUTO_CLOSE";
 
     public static final String EMAIL_MESSAGE_EXTRA             = "EMAIL_MESSAGE_EXTRA";
 
