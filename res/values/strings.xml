@@ -34,16 +34,19 @@
     <string name="about_pref_summary">About Email Popup</string>
     <string name="about_text">Author: Bao-Long Nguyen-Trong\n
 \n
-Email Popup is a simple utility that displays a short dialog every time an email is received.\n
+Email Popup is a simple app that displays a dialog for a few seconds every time an email is received.
+If the phone is sleeping and/or the screen locked,
+Email Popup will wake up the phone and unlock the screen when displaying the popups.\n
 \n
-You can select how long the popup stays on and you can configure filtering so that only the emails
-important to you popup.\n
+You can select how long the popup stays on.
+You can also configure the app to filter out emails so that only the important ones do popup.\n
 \n
-Use Email Popup when you are working or studying by leaving your phone on your desk.
-Email Popup can also be used with the phone mounted on the car dashboard when driving.
-Finally, it is great to see incoming emails unnoticed during meetings.\n
+Email Popup is great for\n
+  . when you are working or studying with the phone on your desk\n
+  . when driving with phone mounted on the car\'s dashboard\n
+  . when in meetings\n
 \n
-Email Popup only works with K-9 Mail v1.106 and higher.
+Email Popup only works with K-9 Mail v1.106 and higher, http://code.google.com/p/k9mail\n
 It does not work with Gmail unless you get your Gmail messages using K-9 Mail.\n
 \n
 For more info:\n
@@ -53,6 +56,11 @@ For comments and feedback, feel free to email me at email-popup@blntsoft.com\n
 \n
 Check out the app blog for news:\n
 http://www.blntsoft.com/category/email-popup\n
+\n
+Icon Credits: Maury Boswell, http://www.mauryboswell.com\n
+based on Simplicio http://www.smashingmagazine.com/2008/09/02/simplicio-a-free-icon-set\n
+by Neurovit, http://neurovit.deviantart.com\n
+via Smashing Magazine, http://www.smashingmagazine.com\n
 </string>
 
 </resources>

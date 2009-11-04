@@ -129,6 +129,7 @@ public class Preferences
         return "";
     }//setContactFilteringPreferenceSummary
 
+    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -147,6 +148,7 @@ public class Preferences
                 return super.onOptionsItemSelected(item);
         }
     }
+    */
 
 }//Preferences
 
