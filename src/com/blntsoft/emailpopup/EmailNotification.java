@@ -32,7 +32,9 @@ public class EmailNotification
     private TextView fromNameTextView;
     private TextView fromEmailTextView;
     private TextView subjectTextView;
-    //private Button okButton;
+
+    private Button viewButton;
+    private Button closeButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,9 +56,12 @@ public class EmailNotification
 
         fromEmailTextView = (TextView)findViewById(R.id.from_email);
         subjectTextView = (TextView)findViewById(R.id.subject);
-        
-        //okButton = (Button)findViewById(R.id.ok_button);
-        //okButton.setOnClickListener(this);
+
+        viewButton = (Button)findViewById(R.id.view_button);
+        viewButton.setOnClickListener(this);
+
+        closeButton = (Button)findViewById(R.id.close_button);
+        closeButton.setOnClickListener(this);
 
         Intent intent = getIntent();
         message = (EmailMessage)intent.getSerializableExtra(EmailPopup.EMAIL_MESSAGE_EXTRA);
@@ -95,16 +100,15 @@ public class EmailNotification
 
     @Override
     public void onClick(View view) {
-        /*
-        if (view==okButton) {
-            close();
+        if (view==closeButton) {
         }
-        */
-        KeyguardManager.release();
-        
-        Intent intent = new Intent(Intent.ACTION_VIEW, getIntent().getData());
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        this.startActivity(intent);
+        else {
+            KeyguardManager.release();
+
+            Intent intent = new Intent(Intent.ACTION_VIEW, getIntent().getData());
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            this.startActivity(intent);
+        }
         
         finish();
     }//onClick
@@ -116,11 +120,6 @@ public class EmailNotification
         super.onDestroy();
     }
 
-    private void close() {
-        Log.e(EmailPopup.LOG_TAG, "EmailNotification.close()");
-        finish();
-    }//close
-
     @Override
     public void run() {
         try {
@@ -128,7 +127,7 @@ public class EmailNotification
             int displayTime = Integer.parseInt(preferences.getString(Preferences.TIME_DISPLAY_PREF_KEY, getString(R.string.time_display_preference_default)));
             Thread.sleep((int)(displayTime * 1000 * 1.1));
             if (!isDestroyed) {
-                close();
+                finish();
             }
         }
         catch (Exception e) {

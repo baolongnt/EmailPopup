@@ -55,12 +55,14 @@ public class Main
             Thread t = new Thread() {
                 @Override
                 public void run() {
+                    /*
                     try {
                         Thread.sleep(2500);
                     }
                     catch (InterruptedException e) {
                         Log.w(EmailPopup.LOG_TAG, null, e);
                     }
+                     */
 
                     Uri uri = Uri.parse("email://messages/1/Inbox/123");
                     Intent intent = new Intent(EmailPopup.ACTION_EMAIL_RECEIVED, uri);

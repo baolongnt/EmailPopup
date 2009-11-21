@@ -5,6 +5,8 @@
     <!-- Notification -->
     
     <string name="notification_title">New Email</string>
+    <string name="view_button_text">Open</string>
+    <string name="close_button_text">Close</string>
 
     <!-- Preferences -->
 
