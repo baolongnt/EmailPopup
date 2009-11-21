@@ -29,6 +29,11 @@ public class KeyguardManager {
         }
     }
 
+    static synchronized void release() {
+        keyguardLock = null;
+        Log.d(EmailPopup.LOG_TAG, "Keyguard released");
+    }
+
     static synchronized void reenableKeyguard() {
         if (keyguardLock!=null) {
             keyguardLock.reenableKeyguard();

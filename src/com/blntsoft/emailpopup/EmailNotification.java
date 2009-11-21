@@ -21,7 +21,7 @@ import android.widget.TextView;
  */
 public class EmailNotification 
     extends Activity
-    implements Runnable {
+    implements Runnable, OnClickListener {
 
     private static final int MAX_SUBJECT_LENGTH = 140;
 
@@ -47,12 +47,15 @@ public class EmailNotification
         
         w.setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.icon);
 
+        findViewById(R.id.notification_area).setOnClickListener(this);
+
         photoImageView = (ImageView)findViewById(R.id.sender_photo);
         fromNameTextView = (TextView)findViewById(R.id.from_name);
+
         fromEmailTextView = (TextView)findViewById(R.id.from_email);
         subjectTextView = (TextView)findViewById(R.id.subject);
+        
         //okButton = (Button)findViewById(R.id.ok_button);
-
         //okButton.setOnClickListener(this);
 
         Intent intent = getIntent();
@@ -90,14 +93,21 @@ public class EmailNotification
         }
     }//onCreate
 
-    /*
     @Override
     public void onClick(View view) {
+        /*
         if (view==okButton) {
             close();
         }
+        */
+        KeyguardManager.release();
+        
+        Intent intent = new Intent(Intent.ACTION_VIEW, getIntent().getData());
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        this.startActivity(intent);
+        
+        finish();
     }//onClick
-     * */
 
     @Override
     public void onDestroy() {
@@ -130,14 +140,14 @@ public class EmailNotification
         @Override
         protected Bitmap doInBackground(String... params) {
             Log.v(EmailPopup.LOG_TAG, "Loading contact photo in background... " + message.contactId);
-            int contactResId;
+            int defaultPhotoResId;
             if ((System.currentTimeMillis() % 2)==0) {
-                contactResId = R.drawable.ic_contact_picture;
+                defaultPhotoResId = R.drawable.ic_contact_picture;
             }
             else {
-                contactResId = R.drawable.ic_contact_picture_2;
+                defaultPhotoResId = R.drawable.ic_contact_picture_2;
             }
-            return ContactUtils.getContactPhotoById(EmailNotification.this, message.contactId, contactResId);
+            return ContactUtils.getContactPhotoById(EmailNotification.this, message.contactId, defaultPhotoResId);
         }
 
         @Override

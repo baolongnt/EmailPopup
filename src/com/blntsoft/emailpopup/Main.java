@@ -65,7 +65,7 @@ public class Main
                     Uri uri = Uri.parse("email://messages/1/Inbox/123");
                     Intent intent = new Intent(EmailPopup.ACTION_EMAIL_RECEIVED, uri);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra(EmailPopup.EXTRA_FROM, "Anne N. <anne@blntsoft.com>");
+                    intent.putExtra(EmailPopup.EXTRA_FROM, "Bao-Long Nguyen-Trong <baolong@blntsoft.com>");
                     intent.putExtra(EmailPopup.EXTRA_FOLDER, "Inbox");
                     intent.putExtra(EmailPopup.EXTRA_ACCOUNT, "Personal");
                     intent.putExtra(EmailPopup.EXTRA_SUBJECT, "Are we on tonight?");
