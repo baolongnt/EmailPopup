@@ -10,6 +10,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import java.util.Date;
 
 public class Main
     extends Activity
@@ -51,6 +52,9 @@ public class Main
 
     @Override
     public void onClick(View view) {
+        //final String prefix = "com.fsck.k9.intent.";
+        final String prefix = "com.android.email.intent.";
+
         if (view==testOneButton) {
             Thread t = new Thread() {
                 @Override
@@ -60,18 +64,18 @@ public class Main
                         Thread.sleep(2500);
                     }
                     catch (InterruptedException e) {
-                        Log.w(EmailPopup.LOG_TAG, null, e);
+                        Log.w(prefix+EmailPopup.LOG_TAG, null, e);
                     }
                      */
 
                     Uri uri = Uri.parse("email://messages/1/Inbox/123");
-                    Intent intent = new Intent(EmailPopup.ACTION_EMAIL_RECEIVED, uri);
+                    Intent intent = new Intent(prefix+EmailPopup.ACTION_EMAIL_RECEIVED, uri);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra(EmailPopup.EXTRA_FROM, "Bao-Long Nguyen-Trong <baolong@blntsoft.com>");
-                    intent.putExtra(EmailPopup.EXTRA_FOLDER, "Inbox");
-                    intent.putExtra(EmailPopup.EXTRA_ACCOUNT, "Personal");
-                    intent.putExtra(EmailPopup.EXTRA_SUBJECT, "Are we on tonight?");
-                    intent.putExtra(EmailPopup.EXTRA_AUTO_CLOSE, false);
+                    intent.putExtra(prefix+EmailPopup.EXTRA_FROM, "Anne N. <anne@blntsoft.com>");
+                    intent.putExtra(prefix+EmailPopup.EXTRA_FOLDER, "Inbox");
+                    intent.putExtra(prefix+EmailPopup.EXTRA_ACCOUNT, "Personal");
+                    intent.putExtra(prefix+EmailPopup.EXTRA_SUBJECT, "Are we on tonight?");
+                    intent.putExtra(prefix+EmailPopup.EXTRA_AUTO_CLOSE, false);
                     getApplicationContext().sendBroadcast(intent);
                 }
             };
@@ -86,7 +90,7 @@ public class Main
                         Thread.sleep(2500);
                     }
                     catch (InterruptedException e) {
-                        Log.e(EmailPopup.LOG_TAG, null, e);
+                        Log.e(prefix+EmailPopup.LOG_TAG, null, e);
                     }
 
                     for (int i=0; i<5; i++) {
@@ -94,18 +98,19 @@ public class Main
                             Thread.sleep(500);
                         }
                         catch (InterruptedException e) {
-                            Log.e(EmailPopup.LOG_TAG, null, e);
+                            Log.e(prefix+EmailPopup.LOG_TAG, null, e);
                         }
 
                         Uri uri = Uri.parse("email://messages/2/Inbox/"+1);
-                        Intent intent = new Intent(EmailPopup.ACTION_EMAIL_RECEIVED, uri);
+                        Intent intent = new Intent(prefix+EmailPopup.ACTION_EMAIL_RECEIVED, uri);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra(EmailPopup.EXTRA_ACCOUNT, "TEST");
-                        intent.putExtra(EmailPopup.EXTRA_FROM, "May the Force be with you <email-popup@blntsoft.com>");
-                        intent.putExtra(EmailPopup.EXTRA_FOLDER, "Inbox");
-                        intent.putExtra(EmailPopup.EXTRA_SUBJECT, "Email Popup Rocks!!! " + i);
+                        intent.putExtra(prefix+EmailPopup.EXTRA_ACCOUNT, "TEST");
+                        intent.putExtra(prefix+EmailPopup.EXTRA_FROM, "May the Force be with you <email-popup@blntsoft.com>");
+                        intent.putExtra(prefix+EmailPopup.EXTRA_FOLDER, "Inbox");
+                        intent.putExtra(prefix+EmailPopup.EXTRA_SUBJECT, "Email Popup Rocks! #" + i);
+                        intent.putExtra(prefix+EmailPopup.EXTRA_SENT_DATE, new Date());
                         Main.this.sendBroadcast(intent);
-                        Log.e(EmailPopup.LOG_TAG, i + "th broadcast sent");
+                        Log.e(prefix+EmailPopup.LOG_TAG, i + "th broadcast sent");
                     }
                 }//run
             };//Thread
@@ -115,7 +120,7 @@ public class Main
         }
         else if (view==searchByEmailButton) {
             String email = emailEditText.getText().toString();
-            Log.d(EmailPopup.LOG_TAG, "Email: " + email);
+            Log.d(prefix+EmailPopup.LOG_TAG, "Email: " + email);
 
             long contactId = ContactUtils.getIdByEmailAddress(this, email);
             Toast.makeText(this, "Contact id: " + contactId, Toast.LENGTH_SHORT).show();
@@ -127,7 +132,7 @@ public class Main
         }
         else if (view==searchByNameButton) {
             String name = nameEditText.getText().toString();
-            Log.d(EmailPopup.LOG_TAG, "Name: " + name);
+            Log.d(prefix+EmailPopup.LOG_TAG, "Name: " + name);
 
             long contactId = ContactUtils.getIdByName(this, name);
             Toast.makeText(this, "Contact id: " + contactId, Toast.LENGTH_SHORT).show();
