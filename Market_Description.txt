@@ -1,0 +1,8 @@
+Email Popup is a simple app that displays a dialog for a few seconds every time an email is received.
+
+You can select how long the popup stays on & configure the app to filter out emails so that only the important ones do popup.
+
+* Only works with K-9 Mail *
+
+0.1.2: K-9 2.3x support
+0.1.1: Added 'Open' & 'Close' buttons
