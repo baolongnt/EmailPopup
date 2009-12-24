@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.blntsoft.emailpopup"
       android:versionCode="2"
-      android:versionName="0.1.1">
+      android:versionName="0.1.2">
     <uses-sdk android:minSdkVersion="3"/>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
