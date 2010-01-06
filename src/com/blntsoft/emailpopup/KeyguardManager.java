@@ -11,9 +11,11 @@ import android.util.Log;
 public class KeyguardManager {
 
     private static KeyguardLock keyguardLock = null;
+    private static boolean isManuallyReleased = false;
 
     static synchronized void disableKeyguard(Context context) {
-        if (keyguardLock==null) {
+        if (keyguardLock==null
+            && !isManuallyReleased) {
             android.app.KeyguardManager keyguardManager = (android.app.KeyguardManager)context.getSystemService(Context.KEYGUARD_SERVICE);
             if (keyguardManager.inKeyguardRestrictedInputMode()) {
                 keyguardLock = keyguardManager.newKeyguardLock(EmailPopup.LOG_TAG);
@@ -30,6 +32,7 @@ public class KeyguardManager {
     }
 
     static synchronized void release() {
+        isManuallyReleased = true;
         keyguardLock = null;
         Log.d(EmailPopup.LOG_TAG, "Keyguard released");
     }
@@ -43,6 +46,7 @@ public class KeyguardManager {
         else {
             Log.v(EmailPopup.LOG_TAG, "Keyguard was alredy reenabled");
         }
+        isManuallyReleased = false;
     }
 
     static synchronized boolean isEnabled(Context context) {
