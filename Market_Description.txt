@@ -4,5 +4,6 @@ You can select how long the popup stays on & configure the app to filter out ema
 
 * Only works with K-9 Mail *
 
+0.1.3: Bug fixes
 0.1.2: K-9 2.3x support
 0.1.1: Added 'Open' & 'Close' buttons
