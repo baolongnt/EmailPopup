@@ -20,6 +20,10 @@
         <item>8 sec.</item>
         <item>9 sec.</item>
         <item>10 sec.</item>
+        <item>15 sec.</item>
+        <item>20 sec.</item>
+        <item>25 sec.</item>
+        <item>30 sec.</item>
     </string-array>
     <string-array name="timeDisplayEntryValues">
         <item>2</item>
@@ -31,5 +35,9 @@
         <item>8</item>
         <item>9</item>
         <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>25</item>
+        <item>30</item>
     </string-array>
 </resources>
