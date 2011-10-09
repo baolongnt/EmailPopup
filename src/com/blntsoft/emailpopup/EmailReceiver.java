@@ -78,7 +78,14 @@ public class EmailReceiver extends BroadcastReceiver  {
 
             String contactFiltering = preferences.getString(Preferences.CONTACT_FILTERING_PREF_KEY, Preferences.ALL_FILTERING_PREF_VALUE);
 
-            Address fromAddress = Address.parseUnencoded(fromEmailList)[0];
+            Address[] fromAddressList = Address.parseUnencoded(fromEmailList);
+            Address fromAddress = null;
+            if (fromAddressList.length>0) {
+                fromAddress = fromAddressList[0];
+            }
+            else {
+                fromAddress = new Address("", null);
+            }
             Log.v(EmailPopup.LOG_TAG, "fromAddress.mPersonal: " + fromAddress.mPersonal);
             
             long contactId = ContactUtils.getIdByEmailAddress(context, fromAddress.mAddress);
@@ -96,6 +103,7 @@ public class EmailReceiver extends BroadcastReceiver  {
             }
 
             if (Preferences.STARRED_CONTACT_FILTERING_PREF_VALUE.equals(contactFiltering)
+                && contactId!=-1
                 && !ContactUtils.isContactStarred(context, contactId)) {
                 Log.d(EmailPopup.LOG_TAG, "Not starred contact --> No popup");
                 return;
