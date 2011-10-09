@@ -16,8 +16,8 @@
     <!-- Filtering Preferences -->
 
     <string name="on_off_switch_preference">On\Off</string>
-    <string name="on_switch_preference">Email Popup is 'On'</string>
-    <string name="off_switch_preference">Email Popup is 'Off'</string>
+    <string name="on_switch_preference">Email Popup is \'On\'</string>
+    <string name="off_switch_preference">Email Popup is \'Off\'</string>
     <string name="all_filtering_preference">Popup emails from all</string>
     <string name="contacts_only_filtering_preference">Only popup emails from phone contacts</string>
     <string name="starred_contacts_only_filtering_preference">Only popup emails from starred contacts</string>
