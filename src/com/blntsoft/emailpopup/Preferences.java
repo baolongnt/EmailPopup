@@ -11,6 +11,7 @@ import android.preference.ListPreference;
 import android.preference.PreferenceActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import com.crashlytics.android.Crashlytics;
 
 /**
  *
@@ -44,6 +45,8 @@ public class Preferences
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Crashlytics.start(this);
+
         addPreferencesFromResource(R.xml.preferences);
 
         onOffSwitchPreference = (CheckBoxPreference)getPreferenceScreen().findPreference(ON_OFF_SWITCH_PREF_KEY);

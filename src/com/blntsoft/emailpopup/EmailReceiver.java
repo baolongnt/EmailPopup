@@ -8,6 +8,8 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import com.crashlytics.android.Crashlytics;
+
 import java.util.Date;
 
 public class EmailReceiver extends BroadcastReceiver  {
@@ -24,6 +26,8 @@ public class EmailReceiver extends BroadcastReceiver  {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        Crashlytics.start(context);
+
         String action = intent.getAction();
         if (action.endsWith(EmailPopup.ACTION_EMAIL_RECEIVED)) {
             String extraPrefix = action.substring(0, action.indexOf(EmailPopup.ACTION_EMAIL_RECEIVED));
@@ -95,18 +99,34 @@ public class EmailReceiver extends BroadcastReceiver  {
             }
             Log.d(EmailPopup.LOG_TAG, "contactId: " + contactId);
             
-            if (Preferences.CONTACTS_FILTERING_PREF_VALUE.equals(contactFiltering)
-                && contactId==-1) {
-                Log.d(EmailPopup.LOG_TAG, "Contact only --> No popup");
-                WakeLockManager.releasePartialWakeLock();
-                return;
+            if (Preferences.CONTACTS_FILTERING_PREF_VALUE.equals(contactFiltering)) {
+                if (contactId==-1) {
+                    Log.d(EmailPopup.LOG_TAG, "Contact only --> No popup");
+                    WakeLockManager.releasePartialWakeLock();
+                    return;
+                }
+                else {
+                    //nothing
+                }
             }
-
-            if (Preferences.STARRED_CONTACT_FILTERING_PREF_VALUE.equals(contactFiltering)
-                && contactId!=-1
-                && !ContactUtils.isContactStarred(context, contactId)) {
-                Log.d(EmailPopup.LOG_TAG, "Not starred contact --> No popup");
-                return;
+            else if (Preferences.STARRED_CONTACT_FILTERING_PREF_VALUE.equals(contactFiltering)) {
+                if (contactId==-1) {
+                    Log.d(EmailPopup.LOG_TAG, "Not a contact (can't be starred) --> No popup");
+                    WakeLockManager.releasePartialWakeLock();
+                    return;
+                }
+                else if (contactId!=-1
+                    && !ContactUtils.isContactStarred(context, contactId)) {
+                    Log.d(EmailPopup.LOG_TAG, "Not a starred contact --> No popup");
+                    WakeLockManager.releasePartialWakeLock();
+                    return;
+                }
+                else {
+                    //nothing
+                }
+            }
+            else {
+                //No contact filtering
             }
 
             EmailMessage message = new EmailMessage();
