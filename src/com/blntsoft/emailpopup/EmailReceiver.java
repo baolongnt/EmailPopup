@@ -46,6 +46,13 @@ public class EmailReceiver extends BroadcastReceiver  {
             String logMessage = sb.toString();
             Log.d(EmailPopup.LOG_TAG, "Received intent: " + logMessage);
 
+            boolean isFromSelf = intent.getBooleanExtra(extraPrefix+EmailPopup.EXTRA_FROM_SELF, false);
+            if (isFromSelf) {
+                Log.d(EmailPopup.LOG_TAG, "Email from self --> No popup");
+                WakeLockManager.releasePartialWakeLock();
+                return;
+            }
+
             Date emailDate = (Date)intent.getSerializableExtra(extraPrefix+EmailPopup.EXTRA_SENT_DATE);
             if (emailDate!=null) {
                 //TODO: Make this a preference

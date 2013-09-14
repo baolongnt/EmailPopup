@@ -44,5 +44,11 @@
     android:layout_height="wrap_content"
     android:text="View Email"
     />
+    <Button
+            android:id="@+id/test_from_self_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Test From Self"
+            />
 </LinearLayout>
 

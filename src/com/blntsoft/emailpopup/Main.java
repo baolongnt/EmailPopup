@@ -27,6 +27,8 @@ public class Main
 
     Button viewEmailButton;
 
+    Button testFromSelfButton;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +50,9 @@ public class Main
 
         viewEmailButton = (Button)findViewById(R.id.view_email_button);
         viewEmailButton.setOnClickListener(this);
+
+        testFromSelfButton = (Button)findViewById(R.id.test_from_self_button);
+        testFromSelfButton.setOnClickListener(this);
     }//onCreate
 
     @Override
@@ -59,14 +64,14 @@ public class Main
             Thread t = new Thread() {
                 @Override
                 public void run() {
-                    /*
+
                     try {
                         Thread.sleep(2500);
                     }
                     catch (InterruptedException e) {
                         Log.w(prefix+EmailPopup.LOG_TAG, null, e);
                     }
-                     */
+                    
 
                     Uri uri = Uri.parse("email://messages/1/Inbox/123");
                     Intent intent = new Intent(prefix+EmailPopup.ACTION_EMAIL_RECEIVED, uri);
@@ -142,11 +147,38 @@ public class Main
                 Toast.makeText(this, "Contact Starred: " + starred, Toast.LENGTH_SHORT).show();
             }
         }
-        else {
+        else if (view==viewEmailButton) {
             //Intent intent = new Intent("android.intent.action.VIEW", Uri.parse("email://messages/0/INBOX/1255020785.890845.m1gemini00-01.prod.mesa1.1091393888"));
             Intent intent = new Intent("android.intent.action.VIEW", Uri.parse("email://messages/0/INBOX/1255020785.890845.m1gemini00-01.prod.mesa1.109139388"));
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             this.startActivity(intent);
-        }//if testOneButton
+        }
+        else if (view==testFromSelfButton) {
+            Thread t = new Thread() {
+                @Override
+                public void run() {
+
+                    try {
+                        Thread.sleep(2500);
+                    }
+                    catch (InterruptedException e) {
+                        Log.w(prefix+EmailPopup.LOG_TAG, null, e);
+                    }
+
+
+                    Uri uri = Uri.parse("email://messages/1/Inbox/123");
+                    Intent intent = new Intent(prefix+EmailPopup.ACTION_EMAIL_RECEIVED, uri);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra(prefix+EmailPopup.EXTRA_FROM, "Anne N. <anne@blntsoft.com>");
+                    intent.putExtra(prefix+EmailPopup.EXTRA_FOLDER, "Inbox");
+                    intent.putExtra(prefix+EmailPopup.EXTRA_ACCOUNT, "Personal");
+                    intent.putExtra(prefix+EmailPopup.EXTRA_SUBJECT, "Are we on tonight?");
+                    intent.putExtra(prefix+EmailPopup.EXTRA_FROM_SELF, true);
+                    getApplicationContext().sendBroadcast(intent);
+                }
+            };
+            t.start();
+            finish();
+        }//if
     }
 }
