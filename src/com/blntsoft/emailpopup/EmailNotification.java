@@ -14,6 +14,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.crashlytics.android.Crashlytics;
 
 /**
  *
@@ -38,6 +39,8 @@ public class EmailNotification
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Crashlytics.start(this);
+
         Log.v(EmailPopup.LOG_TAG, "EmailNotification.onCreate()");
 
         super.onCreate(savedInstanceState);

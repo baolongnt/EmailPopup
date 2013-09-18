@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import com.crashlytics.android.Crashlytics;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +30,10 @@ public class EmailPopupService
 
     @Override
     public void onStart (Intent intent, int startId) {
+        Crashlytics.start(this);
+
         Log.e(EmailPopup.LOG_TAG, "onStart()");
+
         synchronized (emailMessageQueue) {
             emailMessageQueue.add((EmailMessage)intent.getSerializableExtra(EmailPopup.EMAIL_MESSAGE_EXTRA));
             Log.e(EmailPopup.LOG_TAG, "Message added to queue");
