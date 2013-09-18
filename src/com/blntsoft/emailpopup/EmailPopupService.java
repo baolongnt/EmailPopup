@@ -19,7 +19,7 @@ public class EmailPopupService
     implements Runnable {
 
     private static final List<EmailMessage> emailMessageQueue = new ArrayList<EmailMessage>();
-    private Thread workerThead;
+    private Thread workerThread;
 
     @Override
     public  IBinder onBind(Intent intent) {
@@ -33,10 +33,10 @@ public class EmailPopupService
             emailMessageQueue.add((EmailMessage)intent.getSerializableExtra(EmailPopup.EMAIL_MESSAGE_EXTRA));
             Log.e(EmailPopup.LOG_TAG, "Message added to queue");
 
-            if (workerThead==null
-                || !workerThead.isAlive()) {
-                workerThead = new Thread(this);
-                workerThead.start();
+            if (workerThread ==null
+                || !workerThread.isAlive()) {
+                workerThread = new Thread(this);
+                workerThread.start();
                 Log.e(EmailPopup.LOG_TAG, "Worker thread started");
             }
             
