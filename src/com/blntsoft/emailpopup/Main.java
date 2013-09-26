@@ -76,7 +76,7 @@ public class Main
                     Uri uri = Uri.parse("email://messages/1/Inbox/123");
                     Intent intent = new Intent(prefix+EmailPopup.ACTION_EMAIL_RECEIVED, uri);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra(prefix+EmailPopup.EXTRA_FROM, "Anne N. <anne@blntsoft.com>");
+                    intent.putExtra(prefix+EmailPopup.EXTRA_FROM, nameEditText.getText().toString() + " <" + emailEditText.getText().toString() + ">");
                     intent.putExtra(prefix+EmailPopup.EXTRA_FOLDER, "Inbox");
                     intent.putExtra(prefix+EmailPopup.EXTRA_ACCOUNT, "Personal");
                     intent.putExtra(prefix+EmailPopup.EXTRA_SUBJECT, "Are we on tonight?");
@@ -110,7 +110,7 @@ public class Main
                         Intent intent = new Intent(prefix+EmailPopup.ACTION_EMAIL_RECEIVED, uri);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.putExtra(prefix+EmailPopup.EXTRA_ACCOUNT, "TEST");
-                        intent.putExtra(prefix+EmailPopup.EXTRA_FROM, "May the Force be with you <email-popup@blntsoft.com>");
+                        intent.putExtra(prefix+EmailPopup.EXTRA_FROM, nameEditText.getText().toString() + " <" + emailEditText.getText().toString() + ">");
                         intent.putExtra(prefix+EmailPopup.EXTRA_FOLDER, "Inbox");
                         intent.putExtra(prefix+EmailPopup.EXTRA_SUBJECT, "Email Popup Rocks! #" + i);
                         intent.putExtra(prefix+EmailPopup.EXTRA_SENT_DATE, new Date());
@@ -177,6 +177,10 @@ public class Main
                     getApplicationContext().sendBroadcast(intent);
                 }
             };
+
+            //Test delete
+            //email://messages/0/INBOX/1379391488.340277.p3plgemini06-02.prod.phx.1104034112
+
             t.start();
             finish();
         }//if
