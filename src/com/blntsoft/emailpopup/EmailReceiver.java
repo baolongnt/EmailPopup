@@ -28,6 +28,8 @@ public class EmailReceiver extends BroadcastReceiver  {
     public void onReceive(Context context, Intent intent) {
         Crashlytics.start(context);
 
+        Log.d(EmailPopup.LOG_TAG, intent.getDataString());
+
         String action = intent.getAction();
         if (action.endsWith(EmailPopup.ACTION_EMAIL_RECEIVED)) {
             String extraPrefix = action.substring(0, action.indexOf(EmailPopup.ACTION_EMAIL_RECEIVED));
