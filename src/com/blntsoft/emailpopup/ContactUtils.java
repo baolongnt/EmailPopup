@@ -7,9 +7,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
-import android.provider.Contacts;
 import android.provider.ContactsContract;
 import android.util.Log;
+
 import java.io.IOException;
 import java.io.InputStream;
 

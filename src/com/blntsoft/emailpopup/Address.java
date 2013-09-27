@@ -2,6 +2,7 @@ package com.blntsoft.emailpopup;
 
 import android.text.util.Rfc822Token;
 import android.text.util.Rfc822Tokenizer;
+
 import java.util.ArrayList;
 import java.util.List;
 
