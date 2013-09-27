@@ -4,10 +4,14 @@ import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.Contacts;
-import android.provider.Contacts.People;
+import android.provider.ContactsContract;
 import android.util.Log;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  *
@@ -23,12 +27,16 @@ public class ContactUtils {
         }
         else {
             long contactId;
+            Uri uri = Uri.withAppendedPath(ContactsContract.CommonDataKinds.Email.CONTENT_LOOKUP_URI, Uri.encode(emailAddress.trim()));
             Cursor cursor = context.getContentResolver().query(
-                Contacts.ContactMethods.CONTENT_URI,
-                new String[] { Contacts.ContactMethods.PERSON_ID },
-                "contact_methods.data = ?",
-                new String[] { emailAddress.trim() },
-                null);
+                    uri,
+                    new String[] {
+                        ContactsContract.CommonDataKinds.Email.CONTACT_ID
+                    },
+                    null,
+                    null,
+                    null
+            );
 
             if (cursor != null) {
                 try {
@@ -64,10 +72,12 @@ public class ContactUtils {
         else {
             long contactId;
             Cursor cursor = context.getContentResolver().query(
-                Uri.withAppendedPath(Contacts.People.CONTENT_FILTER_URI, name),
-                new String[] { Contacts.People._ID },
-                null,
-                null,
+                ContactsContract.Contacts.CONTENT_URI,
+                new String[] {
+                    ContactsContract.Contacts._ID
+                },
+                ContactsContract.Contacts.DISPLAY_NAME + " = ?",
+                new String[] { name.trim() },
                 null
             );
 
@@ -102,20 +112,42 @@ public class ContactUtils {
             return null;
         }
         else {
-            return Contacts.People.loadContactPhoto(
-                context,
-                Uri.withAppendedPath(Contacts.People.CONTENT_URI, String.valueOf(id)),
-                defaultPhotoId,
-                null
-            );
+            try {
+                InputStream in;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+                    in = ContactsContract.Contacts.openContactPhotoInputStream(
+                            context.getContentResolver(),
+                            ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, id),
+                            true
+                    );
+                }
+                else {
+                    in = ContactsContract.Contacts.openContactPhotoInputStream(
+                            context.getContentResolver(),
+                            ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, id)
+                    );
+                }
+                if (in == null) {
+                    return null;
+                }
+                else {
+                    Bitmap photo = BitmapFactory.decodeStream(in);
+                    in.close();
+                    return photo;
+                }
+            }
+            catch (IOException e) {
+                Log.d(EmailPopup.LOG_TAG, e.toString());
+                return null;
+            }
         }
     }//getContactPhotoById
 
     public static boolean isContactStarred(Context context, long id) {
         int isStarred;
         Cursor cursor = context.getContentResolver().query(
-            ContentUris.withAppendedId(People.CONTENT_URI, id),
-            new String[] { Contacts.PeopleColumns.STARRED },
+            ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, id),
+            new String[] { ContactsContract.Contacts.STARRED },
             null,
             null,
             null);
@@ -125,7 +157,7 @@ public class ContactUtils {
                 if (cursor.getCount() > 0) {
                     cursor.moveToFirst();
                     isStarred = Integer.valueOf(cursor.getInt(0));
-                    Log.d(EmailPopup.LOG_TAG, "Is contact starred: " + id + "=> " + isStarred);
+                    Log.d(EmailPopup.LOG_TAG, "Is contact starred: " + id + "=" + isStarred);
                 }
                 else {
                     Log.v(EmailPopup.LOG_TAG, "Count = 0");

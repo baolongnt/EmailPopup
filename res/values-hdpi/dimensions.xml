@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="sender_photo_width">160px</dimen>
+    <dimen name="sender_photo_height">160px</dimen>
+</resources>

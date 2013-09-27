@@ -1,12 +1,16 @@
 package com.blntsoft.emailpopup;
 
 import android.app.Activity;
+import android.content.ContentUris;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -149,7 +153,14 @@ public class EmailNotification
             else {
                 defaultPhotoResId = R.drawable.ic_contact_picture_2;
             }
-            return ContactUtils.getContactPhotoById(EmailNotification.this, message.contactId, defaultPhotoResId);
+            Bitmap photo = ContactUtils.getContactPhotoById(EmailNotification.this, message.contactId, defaultPhotoResId);
+            if (photo == null) {
+                photo = BitmapFactory.decodeResource(EmailNotification.this.getResources(), defaultPhotoResId);
+            }
+            int photoWidth = (int)getResources().getDimension(R.dimen.sender_photo_width);
+            int photoHeight = (int)getResources().getDimension(R.dimen.sender_photo_height);
+            photo = Bitmap.createScaledBitmap(photo, photoWidth, photoHeight, false);
+            return photo;
         }
 
         @Override
