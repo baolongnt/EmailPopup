@@ -2,6 +2,7 @@ package com.blntsoft.emailpopup;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -133,6 +134,9 @@ public class Main
             if (contactId!=-1) {
                 boolean starred = ContactUtils.isContactStarred(this, contactId);
                 Toast.makeText(this, "Contact Starred: " + starred, Toast.LENGTH_SHORT).show();
+
+                Bitmap photo = ContactUtils.getContactPhotoById(this, contactId, R.drawable.ic_contact_picture);
+                Toast.makeText(this, "Contact photo found: " + (photo!=null), Toast.LENGTH_SHORT).show();
             }
         }
         else if (view==searchByNameButton) {
@@ -145,6 +149,9 @@ public class Main
             if (contactId!=-1) {
                 boolean starred = ContactUtils.isContactStarred(this, contactId);
                 Toast.makeText(this, "Contact Starred: " + starred, Toast.LENGTH_SHORT).show();
+
+                Bitmap photo = ContactUtils.getContactPhotoById(this, contactId, R.drawable.ic_contact_picture);
+                Toast.makeText(this, "Contact photo found: " + (photo!=null), Toast.LENGTH_SHORT).show();
             }
         }
         else if (view==viewEmailButton) {
