@@ -4,6 +4,14 @@ You can select how long the popup stays on & configure the app to filter out ema
 
 * Only works with K-9 Mail *
 
+* Internet access is only used for anonymous crash reporting *
+
+0.1.6:
+  . Filter out email from self
+  . Contact API upgrade -> display photos from all installed contact sources (Facebook, Skype, LinkedIn, etc...)
+  . Crashlytics support
+0.1.5: Added Honeycomb support and large screens
+0.1.4: Longer display time options
 0.1.3: Bug fixes
 0.1.2: K-9 2.3x support
 0.1.1: Added 'Open' & 'Close' buttons
