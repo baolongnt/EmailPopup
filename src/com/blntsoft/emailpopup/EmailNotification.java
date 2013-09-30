@@ -15,6 +15,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.blntsoft.utils.OnSwipeTouchListener;
 import com.crashlytics.android.Crashlytics;
 
 /**
@@ -37,6 +38,8 @@ public class EmailNotification
 
     private Button viewButton;
     private Button closeButton;
+
+    private OnSwipeTouchListener onSwipeTouchListener;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -95,6 +98,31 @@ public class EmailNotification
         else {
             setTitle(R.string.notification_title);
         }
+
+        View notificationArea = findViewById(R.id.notification_area);
+        notificationArea.setOnTouchListener(new OnSwipeTouchListener(this) {
+            @Override
+            public void onSwipeRight() {
+                Log.d(EmailPopup.LOG_TAG, "onSwipeRight");
+                EmailNotification.this.onClick(closeButton);
+            }
+
+            @Override
+            public void onSwipeLeft() {
+                Log.d(EmailPopup.LOG_TAG, "onSwipeLeft");
+                EmailNotification.this.onClick(closeButton);
+            }
+
+            @Override
+            public void onSwipeTop() {
+                Log.d(EmailPopup.LOG_TAG, "onSwipeTop");
+            }
+
+            @Override
+            public void onSwipeBottom() {
+                Log.d(EmailPopup.LOG_TAG, "onSwipeBottom");
+            }
+        });
 
         isDestroyed = false;
         if (message.autoClose) {
