@@ -28,26 +28,57 @@ public class EmailPopupService
         return  null;
     }
 
+    public void handleCommand(Intent intent) {
+        try {
+            Log.e(EmailPopup.LOG_TAG, "onStart()");
+
+            synchronized (emailMessageQueue) {
+                if (intent != null) {
+                    emailMessageQueue.add((EmailMessage)intent.getSerializableExtra(EmailPopup.EMAIL_MESSAGE_EXTRA));
+                    Log.e(EmailPopup.LOG_TAG, "Message added to queue");
+
+                    if (workerThread ==null
+                        || !workerThread.isAlive()) {
+                        workerThread = new Thread(this);
+                        workerThread.start();
+                        Log.e(EmailPopup.LOG_TAG, "Worker thread started");
+                    }
+
+                    WakeLockManager.acquirePartialWakeLock(this);
+                    KeyguardManager.disableKeyguard(this);
+                }
+                else {
+                    //Should not happen anymore
+                    //See http://crashes.to/s/ff42bdba8d7
+                    //See http://stackoverflow.com/questions/5856861/why-android-service-crashes-with-nullpointerexception
+                    Crashlytics.log("Intent passed to service is null!");
+                }
+            }
+        }
+        catch (Exception e) {
+            Crashlytics.logException(e);
+        }
+    }
+
+    // This is the old onStart method that will be called on the pre-2.0
+    // platform.  On 2.0 or later we override onStartCommand() so this
+    // method will not be called.
     @Override
-    public void onStart (Intent intent, int startId) {
+    public void onStart(Intent intent, int startId) {
         Crashlytics.start(this);
 
-        Log.e(EmailPopup.LOG_TAG, "onStart()");
+        handleCommand(intent);
+    }
 
-        synchronized (emailMessageQueue) {
-            emailMessageQueue.add((EmailMessage)intent.getSerializableExtra(EmailPopup.EMAIL_MESSAGE_EXTRA));
-            Log.e(EmailPopup.LOG_TAG, "Message added to queue");
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Crashlytics.start(this);
 
-            if (workerThread ==null
-                || !workerThread.isAlive()) {
-                workerThread = new Thread(this);
-                workerThread.start();
-                Log.e(EmailPopup.LOG_TAG, "Worker thread started");
-            }
-            
-            WakeLockManager.acquirePartialWakeLock(this);
-            KeyguardManager.disableKeyguard(this);
-        }
+        handleCommand(intent);
+
+        // We want this service to continue running until it is explicitly
+        // stopped, so return sticky.
+        return START_STICKY;
     }
 
     public void run() {
