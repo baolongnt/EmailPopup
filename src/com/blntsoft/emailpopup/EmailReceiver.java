@@ -58,7 +58,7 @@ public class EmailReceiver extends BroadcastReceiver  {
             if (emailDate!=null) {
                 //TODO: Make this a preference
                 if (System.currentTimeMillis()-emailDate.getTime() > 8*60*60*1000) {
-                    Log.d(EmailPopup.LOG_TAG, "Email older than 8h --> No popup");
+                    Log.d(EmailPopup.LOG_TAG, "Email older than 8h --> No popup: " + emailDate);
                     WakeLockManager.releasePartialWakeLock();
                     return;
                 }
