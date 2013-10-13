@@ -4,51 +4,66 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
-<Button
-    android:id="@+id/test_one_button"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Test One"
-    />
-<Button
-    android:id="@+id/test_multiple_button"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Test Multiple"
-    />
-<EditText
-    android:id="@+id/email_edit_text"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:text="anhthu@nguyentrong.com"/>
-<Button
-    android:id="@+id/search_by_email_button"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Search By Email"
-    />
-<EditText
-    android:id="@+id/name_edit_text"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:text="Anh-Thu Nguyen"/>
-<Button
-    android:id="@+id/search_by_name_button"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Search By Name"
-    />
-<Button
-    android:id="@+id/view_email_button"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="View Email"
-    />
+    <EditText
+            android:id="@+id/account_number_edit_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="5"/>
+    <EditText
+            android:id="@+id/name_edit_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Anh-Thu Nguyen"/>
+    <EditText
+            android:id="@+id/email_edit_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="anhthu@nguyentrong.com"/>
     <Button
-            android:id="@+id/test_from_self_button"
+        android:id="@+id/test_one_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Test One"
+        />
+    <Button
+        android:id="@+id/test_multiple_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Test Multiple"
+        />
+    <Button
+        android:id="@+id/test_from_self_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Test From Self"
+        />
+    <Button
+        android:id="@+id/search_by_email_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search By Email"
+        />
+    <Button
+        android:id="@+id/search_by_name_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search By Name"
+        />
+    <Button
+        android:id="@+id/view_email_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Email"
+        />
+    <Button
+        android:id="@+id/popup_email_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Popup Email"
+        />
+    <Button
+            android:id="@+id/delete_email_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Test From Self"
-            />
+            android:text="Delete Email"/>
 </LinearLayout>
-

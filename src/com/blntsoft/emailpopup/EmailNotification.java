@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -15,6 +16,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.blntsoft.utils.OnSwipeTouchListener;
 import com.crashlytics.android.Crashlytics;
 
@@ -25,6 +27,9 @@ import com.crashlytics.android.Crashlytics;
 public class EmailNotification 
     extends Activity
     implements Runnable, OnClickListener {
+
+    private static final String VIEW_URI_PREFIX = "email://messages/";
+    private static final String DELETE_URI_PREFIX = "content://com.fsck.k9.messageprovider/delete_message/";
 
     private static final int MAX_SUBJECT_LENGTH = 140;
 
@@ -37,6 +42,7 @@ public class EmailNotification
     private TextView subjectTextView;
 
     private Button viewButton;
+    private Button deleteButton;
     private Button closeButton;
 
     private OnSwipeTouchListener onSwipeTouchListener;
@@ -66,6 +72,9 @@ public class EmailNotification
 
         viewButton = (Button)findViewById(R.id.view_button);
         viewButton.setOnClickListener(this);
+
+        deleteButton = (Button)findViewById(R.id.delete_button);
+        deleteButton.setOnClickListener(this);
 
         closeButton = (Button)findViewById(R.id.close_button);
         closeButton.setOnClickListener(this);
@@ -134,6 +143,12 @@ public class EmailNotification
     public void onClick(View view) {
         if (view==closeButton) {
         }
+        else if (view==deleteButton) {
+            Uri viewEmailUri = getIntent().getData();
+            String viewEmailUriStr = viewEmailUri.toString();
+            String delEmailUriStr = DELETE_URI_PREFIX + viewEmailUriStr.substring(VIEW_URI_PREFIX.length());
+            new DeleteEmailTask().execute(delEmailUriStr);
+        }
         else {
             KeyguardManager.release();
 
@@ -197,4 +212,15 @@ public class EmailNotification
         }
     }//FetchContactPhotoTask
 
+    private class DeleteEmailTask extends AsyncTask<String, Void, Void> {
+        @Override
+        protected Void doInBackground(String... params) {
+            String delUriStr = params[0];
+            Log.v(EmailPopup.LOG_TAG, delUriStr);
+
+            Uri delUri = Uri.parse(delUriStr);
+            getContentResolver().delete(delUri , null, null);
+            return null;
+        }
+    }
 }//EmailNotification
