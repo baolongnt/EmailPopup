@@ -13,12 +13,12 @@
             android:id="@+id/name_edit_text"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Anh-Thu Nguyen"/>
+            android:text="Anne N."/>
     <EditText
             android:id="@+id/email_edit_text"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="anhthu@nguyentrong.com"/>
+            android:text="anne@blntsoft.com"/>
     <Button
         android:id="@+id/test_one_button"
         android:layout_width="wrap_content"
