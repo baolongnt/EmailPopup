@@ -108,7 +108,7 @@ public class EmailNotification
             setTitle(R.string.notification_title);
         }
 
-        View notificationArea = findViewById(R.id.notification_area);
+        View notificationArea = findViewById(R.id.notification);
         notificationArea.setOnTouchListener(new OnSwipeTouchListener(this) {
             @Override
             public void onSwipeRight() {

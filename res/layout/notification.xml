@@ -5,6 +5,7 @@
     android:minWidth="300dp"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:id="@+id/notification"
     >
     <ImageView
         android:id="@+id/divider_1"
