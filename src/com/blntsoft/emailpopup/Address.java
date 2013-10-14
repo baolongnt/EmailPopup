@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  *
- * @author Bao-Long Nguyen-Trong (baolong@nguyentrong.com)
+ * @author Bao-Long Nguyen-Trong (baolong@blntsoft.com)
  */
 public class Address {
 

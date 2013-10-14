@@ -12,7 +12,7 @@ import com.crashlytics.android.Crashlytics;
 
 /**
  *
- * @author Bao-Long Nguyen-Trong (baolong@nguyentrong.com)
+ * @author Bao-Long Nguyen-Trong (baolong@blntsoft.com)
  */
 public class Preferences
     extends PreferenceActivity

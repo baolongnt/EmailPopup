@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author Bao-Long Nguyen-Trong (baolong@nguyentrong.com)
+ * @author Bao-Long Nguyen-Trong (baolong@blntsoft.com)
  */
 public class EmailMessage
     implements Serializable {
