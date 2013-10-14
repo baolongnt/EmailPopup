@@ -20,6 +20,9 @@ https://github.com/baolongnt/EmailPopup/issues
 Release History
 ===============
 
+The latest version can be found on the Google Play store
+https://play.google.com/store/apps/details?id=com.blntsoft.emailpopup
+
 
 0.2.1:
   * Added 'Delete' button on popup
