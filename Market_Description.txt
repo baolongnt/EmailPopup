@@ -6,6 +6,9 @@ You can select how long the popup stays on & configure the app to filter out ema
 
 * Internet access is only used for anonymous crash reporting *
 
+0.2.1:
+  . Added 'Delete' button on popup
+  . Minor UI fixes
 0.1.6:
   . Filter out email from self
   . Contact API upgrade -> display photos from all installed contact sources (Facebook, Skype, LinkedIn, etc...)
