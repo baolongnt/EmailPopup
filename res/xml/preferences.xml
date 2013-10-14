@@ -1,42 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-	<PreferenceCategory android:title="General">
-		<CheckBoxPreference
-			android:title="On/Off"
-			android:defaultValue="true"
-			android:summary="@string/on_switch_preference"
-			android:key="onOffSwitch" />
-	</PreferenceCategory>
-	<PreferenceCategory android:title="@string/display_pref_category">
-		<ListPreference
-			android:title="@string/time_display_preference_title"
-			android:summary="@string/time_display_preference_summary_default"
-			android:key="timeDisplay"
-			android:defaultValue="@string/time_display_preference_default"
-            android:entries="@array/timeDisplayEntries"
-			android:entryValues="@array/timeDisplayEntryValues" />
+    <PreferenceCategory android:title="General">
+        <CheckBoxPreference
+                android:title="On/Off"
+                android:defaultValue="true"
+                android:summary="@string/on_switch_preference"
+                android:key="onOffSwitch" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/display_pref_category">
+        <ListPreference
+                android:title="@string/time_display_preference_title"
+                android:summary="@string/time_display_preference_summary_default"
+                android:key="timeDisplay"
+                android:defaultValue="@string/time_display_preference_default"
+                android:entries="@array/timeDisplayEntries"
+                android:entryValues="@array/timeDisplayEntryValues" />
+        <!--
+        <RingtonePreference
+                android:key="notificationSound"
+                android:title="@string/sound_display_preference_title"
+                android:summary="@string/sound_display_preference_summary"
+                android:showDefault="true"
+                android:showSilent="true"/>
+        -->
     </PreferenceCategory>
     <PreferenceCategory android:title="Filtering">
-		<CheckBoxPreference
-			android:title="Keyguard Filtering"
-			android:defaultValue="off"
-			android:summary="@string/off_keyguard_preference"
-			android:key="keyguardFiltering" />
-		<ListPreference
-			android:title="Contact Filtering"
-			android:summary="Popup for 'All' emails"
-			android:key="contactFiltering"
-			android:defaultValue="All"
-			android:entries="@array/contactFilterEntries"
-			android:entryValues="@array/contactFilterEntryValues" />
-	</PreferenceCategory>
+        <CheckBoxPreference
+                android:title="Keyguard Filtering"
+                android:defaultValue="off"
+                android:summary="@string/off_keyguard_preference"
+                android:key="keyguardFiltering" />
+        <ListPreference
+                android:title="Contact Filtering"
+                android:summary="Popup for 'All' emails"
+                android:key="contactFiltering"
+                android:defaultValue="All"
+                android:entries="@array/contactFilterEntries"
+                android:entryValues="@array/contactFilterEntryValues" />
+    </PreferenceCategory>
     <PreferenceCategory android:title="Misc.">
         <com.blntsoft.emailpopup.DialogPreference
-          android:key="about"
-          android:dialogIcon="@drawable/icon"
-          android:title="@string/about_pref_title"
-          android:dialogTitle="@string/app_name"
-          android:summary="@string/about_pref_summary"
-          android:negativeButtonText="@null" />
+                android:key="about"
+                android:dialogIcon="@drawable/icon"
+                android:title="@string/about_pref_title"
+                android:dialogTitle="@string/app_name"
+                android:summary="@string/about_pref_summary"
+                android:negativeButtonText="@null" />
     </PreferenceCategory>
 </PreferenceScreen>

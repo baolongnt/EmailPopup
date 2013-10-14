@@ -3,7 +3,7 @@
     <string name="app_name">Email Popup</string>
 
     <!-- Notification -->
-    
+
     <string name="notification_title">New Email</string>
     <string name="view_button_text">Open</string>
     <string name="delete_button_text">Delete</string>
@@ -27,11 +27,16 @@
 
     <!-- Display Preferences -->
 
-    <string name="display_pref_category">Display</string>
+    <string name="display_pref_category">Popup</string>
     <string name="time_display_preference_title">Display Time</string>
     <string name="time_display_preference_default">5</string>
-    <string name="time_display_preference_summary_default">Popup will display for 5  sec.</string>
+    <string name="time_display_preference_summary_default">The popup will display for 5  sec.</string>
     <string name="time_display_preference_summary">Popup will display for %s sec.</string>
+
+    <!--
+    <string name="sound_display_preference_title">Sound</string>
+    <string name="sound_display_preference_summary">Sound played when the popup is displayed</string>
+	-->
 
     <string name="about_pref_title">About</string>
     <string name="about_pref_summary">About Email Popup</string>
