@@ -94,18 +94,21 @@
             android:layout_height="wrap_content"
             android:id="@+id/view_button"
             android:text="@string/view_button_text"
+            style="?android:attr/buttonBarButtonStyle"
         />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/delete_button"
             android:text="@string/delete_button_text"
+            style="?android:attr/buttonBarButtonStyle"
         />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/close_button"
             android:text="@string/close_button_text"
+            style="?android:attr/buttonBarButtonStyle"
         />
     </LinearLayout>
 </RelativeLayout>
