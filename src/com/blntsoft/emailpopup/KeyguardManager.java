@@ -23,7 +23,7 @@ public class KeyguardManager {
                 Log.d(EmailPopup.LOG_TAG, "Keyguard disabled");
             }
             else {
-                Log.v(EmailPopup.LOG_TAG, "Keyguard was not enabledd");
+                Log.v(EmailPopup.LOG_TAG, "Keyguard was not enabled");
             }
         }
         else {
@@ -44,7 +44,7 @@ public class KeyguardManager {
             Log.d(EmailPopup.LOG_TAG, "Keyguard reenabled");
         }
         else {
-            Log.v(EmailPopup.LOG_TAG, "Keyguard was alredy reenabled");
+            Log.v(EmailPopup.LOG_TAG, "Keyguard was already reenabled");
         }
         isManuallyReleased = false;
     }
