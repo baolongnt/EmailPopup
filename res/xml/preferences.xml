@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory android:title="General">
+    <PreferenceCategory android:title="@string/general_pref_category">
         <CheckBoxPreference
-                android:title="On/Off"
+                android:title="@string/on_off_switch_preference"
                 android:defaultValue="true"
                 android:summary="@string/on_switch_preference"
                 android:key="onOffSwitch" />
@@ -24,21 +24,21 @@
                 android:showSilent="true"/>
         -->
     </PreferenceCategory>
-    <PreferenceCategory android:title="Filtering">
+    <PreferenceCategory android:title="@string/filtering_pref_category">
         <CheckBoxPreference
-                android:title="Keyguard Filtering"
+                android:title="@string/keyguard_filtering_preference_title"
                 android:defaultValue="off"
                 android:summary="@string/off_keyguard_preference"
                 android:key="keyguardFiltering" />
         <ListPreference
-                android:title="Contact Filtering"
-                android:summary="Popup for 'All' emails"
+                android:title="@string/contact_filtering_preference_title"
+                android:summary="contact_filtering_preference_summary_default"
                 android:key="contactFiltering"
                 android:defaultValue="All"
                 android:entries="@array/contactFilterEntries"
                 android:entryValues="@array/contactFilterEntryValues" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="Misc.">
+    <PreferenceCategory android:title="@string/misc_pref_category">
         <com.blntsoft.emailpopup.DialogPreference
                 android:key="about"
                 android:dialogIcon="@drawable/icon"

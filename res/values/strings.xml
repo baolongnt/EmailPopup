@@ -11,23 +11,31 @@
 
     <!-- Preferences -->
 
-    <string name="test_menu_option">Test</string>
-    <string name="about_menu_option">About</string>
+    <!-- General Preferences -->
 
-    <!-- Filtering Preferences -->
+    <string name="general_pref_category">General</string>
 
     <string name="on_off_switch_preference">On\Off</string>
     <string name="on_switch_preference">Email Popup is \'On\'</string>
     <string name="off_switch_preference">Email Popup is \'Off\'</string>
+
+    <!-- Filtering Preferences -->
+
+    <string name="filtering_pref_category">Filtering</string>
+
+    <string name="keyguard_filtering_preference_title">Keyguard Filtering</string>
+    <string name="on_keyguard_preference">Only popup emails when the keyguard is on</string>
+    <string name="off_keyguard_preference">Always popup emails</string>
+
+    <string name="contact_filtering_preference_title">Contact Filtering</string>
     <string name="all_filtering_preference">Popup emails from all</string>
     <string name="contacts_only_filtering_preference">Only popup emails from phone contacts</string>
     <string name="starred_contacts_only_filtering_preference">Only popup emails from starred contacts</string>
-    <string name="on_keyguard_preference">Only popup emails when the keyguard is on</string>
-    <string name="off_keyguard_preference">Always popup emails</string>
 
     <!-- Display Preferences -->
 
     <string name="display_pref_category">Popup</string>
+
     <string name="time_display_preference_title">Display Time</string>
     <string name="time_display_preference_default">5</string>
     <string name="time_display_preference_summary_default">The popup will display for 5  sec.</string>
@@ -37,6 +45,10 @@
     <string name="sound_display_preference_title">Sound</string>
     <string name="sound_display_preference_summary">Sound played when the popup is displayed</string>
 	-->
+
+    <!-- Misc. Preferences -->
+
+    <string name="misc_pref_category">Misc.</string>
 
     <string name="about_pref_title">About</string>
     <string name="about_pref_summary">About Email Popup</string>
