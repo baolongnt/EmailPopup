@@ -129,26 +129,5 @@ public class Preferences
         return "";
     }//setContactFilteringPreferenceSummary
 
-    /*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.preference_options, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.test_menu:
-                Intent intent = new Intent(this, Main.class);
-                startActivity(intent);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-    */
-
 }//Preferences
 
