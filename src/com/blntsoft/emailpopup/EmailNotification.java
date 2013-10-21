@@ -143,22 +143,41 @@ public class EmailNotification
     public void onClick(View view) {
         if (view==closeButton) {
         }
-        else if (view==deleteButton) {
+        else {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(EmailNotification.this);
+            boolean keyguardSecurity = preferences.getBoolean(Preferences.KEYGUARD_SECURITY_PREF_KEY, false);
+
+            if (keyguardSecurity) {
+                final View finalView = view;
+                KeyguardManager.secureRelease(this, new KeyguardManager.SecureReleaseCallback() {
+                    @Override
+                    public void onKeyguardSecuredReleased() {
+                        onClickSecuredButton(finalView);
+                    }
+                });
+
+            }
+            else {
+                KeyguardManager.release();
+                onClickSecuredButton(view);
+            }
+        }
+        finish();
+    }//onClick
+
+    private void onClickSecuredButton(View view) {
+        if (view==deleteButton) {
             Uri viewEmailUri = getIntent().getData();
             String viewEmailUriStr = viewEmailUri.toString();
             String delEmailUriStr = DELETE_URI_PREFIX + viewEmailUriStr.substring(VIEW_URI_PREFIX.length());
             new DeleteEmailTask().execute(delEmailUriStr);
         }
         else {
-            KeyguardManager.release();
-
             Intent intent = new Intent(Intent.ACTION_VIEW, getIntent().getData());
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             this.startActivity(intent);
         }
-        
-        finish();
-    }//onClick
+    }//onClickSecuredButton
 
     @Override
     public void onDestroy() {
@@ -222,5 +241,17 @@ public class EmailNotification
             getContentResolver().delete(delUri , null, null);
             return null;
         }
+
+        @Override
+        public void onPostExecute(Void param) {
+            CharSequence fromText = fromNameTextView.getText();
+            if (fromText == null
+                    || fromText.length() == 0) {
+                fromText = fromEmailTextView.getText();
+            }
+            String toastMessage = getString(R.string.delete_email_confirmation_toast, fromText, subjectTextView.getText());
+            Toast.makeText(EmailNotification.this, toastMessage, Toast.LENGTH_LONG).show();
+        }
+
     }
 }//EmailNotification

@@ -9,13 +9,15 @@
     <string name="delete_button_text">Delete</string>
     <string name="close_button_text">Close</string>
 
+    <string name="delete_email_confirmation_toast">Email %1$s: %2$s deleted</string>
+
     <!-- Preferences -->
 
     <!-- General Preferences -->
 
     <string name="general_pref_category">General</string>
 
-    <string name="on_off_switch_preference">On\Off</string>
+    <string name="on_off_switch_preference">On/Off</string>
     <string name="on_switch_preference">Email Popup is \'On\'</string>
     <string name="off_switch_preference">Email Popup is \'Off\'</string>
 
@@ -45,6 +47,14 @@
     <string name="sound_display_preference_title">Sound</string>
     <string name="sound_display_preference_summary">Sound played when the popup is displayed</string>
 	-->
+
+    <!-- Security Preferences -->
+
+    <string name="security_pref_category">Security</string>
+
+    <string name="keyguard_security_pref_title">Keyguard Unlock</string>
+    <string name="on_keyguard_security_preference">Unlocking of the keyguard required after popup</string>
+    <string name="off_keyguard_security_preference">Unlocking of the keyguard not required after popup</string>
 
     <!-- Misc. Preferences -->
 

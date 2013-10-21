@@ -38,6 +38,13 @@
                 android:entries="@array/contactFilterEntries"
                 android:entryValues="@array/contactFilterEntryValues" />
     </PreferenceCategory>
+    <PreferenceCategory android:title="@string/security_pref_category">
+    <CheckBoxPreference
+            android:title="@string/keyguard_security_pref_title"
+            android:defaultValue="off"
+            android:summary="@string/off_keyguard_security_preference"
+            android:key="keyguardSecurity" />
+    </PreferenceCategory>
     <PreferenceCategory android:title="@string/misc_pref_category">
         <com.blntsoft.emailpopup.DialogPreference
                 android:key="about"

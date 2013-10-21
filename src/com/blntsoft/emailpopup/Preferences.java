@@ -22,6 +22,7 @@ public class Preferences
     public static final String CONTACT_FILTERING_PREF_KEY  = "contactFiltering";
     public static final String KEYGUARD_FILTERING_PREF_KEY = "keyguardFiltering";
     public static final String TIME_DISPLAY_PREF_KEY       = "timeDisplay";
+    public static final String KEYGUARD_SECURITY_PREF_KEY  = "keyguardSecurity";
     public static final String ABOUT_PREF_KEY              = "about";
 
     public static final String ALL_FILTERING_PREF_VALUE                     = "All";
@@ -38,6 +39,7 @@ public class Preferences
     private ListPreference contactFilteringPreference;
     private CheckBoxPreference keyguardPreference;
     private ListPreference timeDisplayPreference;
+    private CheckBoxPreference keyguardSecurityPreference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,7 @@ public class Preferences
         contactFilteringPreference = (ListPreference)getPreferenceScreen().findPreference(CONTACT_FILTERING_PREF_KEY);
         keyguardPreference = (CheckBoxPreference)getPreferenceScreen().findPreference(KEYGUARD_FILTERING_PREF_KEY);
         timeDisplayPreference = (ListPreference)getPreferenceScreen().findPreference(TIME_DISPLAY_PREF_KEY);
+        keyguardSecurityPreference = (CheckBoxPreference)getPreferenceScreen().findPreference(KEYGUARD_SECURITY_PREF_KEY);
 
         String version;
         PackageManager pm = this.getPackageManager();
@@ -87,6 +90,13 @@ public class Preferences
                 getString(R.string.time_display_preference_summary, sharedPreferences.getString(key, ""))
             );
         }
+        else if (key.equals(KEYGUARD_SECURITY_PREF_KEY)) {
+            keyguardSecurityPreference.setSummary(
+                    sharedPreferences.getBoolean(key, false) ?
+                            getString(R.string.on_keyguard_security_preference)
+                            : getString(R.string.off_keyguard_security_preference)
+            );
+        }
     }//onSharedPreferenceChanged
 
     @Override
@@ -108,6 +118,11 @@ public class Preferences
         );
         timeDisplayPreference.setSummary(
             getString(R.string.time_display_preference_summary, sharedPreferences.getString(TIME_DISPLAY_PREF_KEY, ""))
+        );
+        keyguardSecurityPreference.setSummary(
+                sharedPreferences.getBoolean(KEYGUARD_SECURITY_PREF_KEY, false) ?
+                        getString(R.string.on_keyguard_security_preference)
+                        : getString(R.string.off_keyguard_security_preference)
         );
 
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);

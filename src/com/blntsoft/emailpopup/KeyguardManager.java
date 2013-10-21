@@ -10,31 +10,58 @@ import android.util.Log;
  */
 public class KeyguardManager {
 
+    public interface SecureReleaseCallback {
+ 		public void onKeyguardSecuredReleased();
+    }
+
+    private static android.app.KeyguardManager keyguardManager = null;
     private static KeyguardLock keyguardLock = null;
-    private static boolean isManuallyReleased = false;
+
+    private static android.app.KeyguardManager getKeyguardManager(Context context) {
+        if (keyguardManager == null) {
+            keyguardManager = (android.app.KeyguardManager)context.getSystemService(Context.KEYGUARD_SERVICE);
+        }
+        return keyguardManager;
+    }
 
     static synchronized void disableKeyguard(Context context) {
-        if (keyguardLock==null
-            && !isManuallyReleased) {
-            android.app.KeyguardManager keyguardManager = (android.app.KeyguardManager)context.getSystemService(Context.KEYGUARD_SERVICE);
-            if (keyguardManager.inKeyguardRestrictedInputMode()) {
-                keyguardLock = keyguardManager.newKeyguardLock(EmailPopup.LOG_TAG);
-                keyguardLock.disableKeyguard();
-                Log.d(EmailPopup.LOG_TAG, "Keyguard disabled");
-            }
-            else {
-                Log.v(EmailPopup.LOG_TAG, "Keyguard was not enabled");
-            }
+        if (getKeyguardManager(context).inKeyguardRestrictedInputMode()) {
+            keyguardLock = getKeyguardManager(context).newKeyguardLock(EmailPopup.LOG_TAG);
+            keyguardLock.disableKeyguard();
+            Log.d(EmailPopup.LOG_TAG, "Keyguard disabled");
         }
         else {
-            Log.v(EmailPopup.LOG_TAG, "Keyguard was already disabled");
+            Log.v(EmailPopup.LOG_TAG, "Keyguard was not enabled");
         }
     }
 
     static synchronized void release() {
-        isManuallyReleased = true;
         keyguardLock = null;
         Log.d(EmailPopup.LOG_TAG, "Keyguard released");
+    }
+
+    static synchronized void secureRelease(Context context, final SecureReleaseCallback callback) {
+        if (keyguardLock != null) {
+            final KeyguardLock finalKeyguardLock = keyguardLock;
+            keyguardLock = null;
+            Log.d(EmailPopup.LOG_TAG, "Keyguard released");
+
+            getKeyguardManager(context).exitKeyguardSecurely(new android.app.KeyguardManager.OnKeyguardExitResult() {
+                @Override
+                public void onKeyguardExitResult(boolean success) {
+                    Log.d(EmailPopup.LOG_TAG, "onKeyguardExitResult: " + success);
+                    //Not sure why we need to reenable keyguard
+                    //but it is needed for subsequent keyguard unlock to work properly
+                    finalKeyguardLock.reenableKeyguard();
+                    if (success) {
+                        callback.onKeyguardSecuredReleased();
+                    }
+                }
+            });
+        }
+        else {
+            callback.onKeyguardSecuredReleased();
+        }
     }
 
     static synchronized void reenableKeyguard() {
@@ -46,17 +73,10 @@ public class KeyguardManager {
         else {
             Log.v(EmailPopup.LOG_TAG, "Keyguard was already reenabled");
         }
-        isManuallyReleased = false;
     }
 
     static synchronized boolean isEnabled(Context context) {
-        if (keyguardLock!=null) {
-            return true;
-        }
-        else {
-            android.app.KeyguardManager keyguardManager = (android.app.KeyguardManager)context.getSystemService(Context.KEYGUARD_SERVICE);
-            return keyguardManager.inKeyguardRestrictedInputMode();
-        }
+        return getKeyguardManager(context).inKeyguardRestrictedInputMode();
     }
 
 }//KeyguardManager
