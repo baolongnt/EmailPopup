@@ -52,6 +52,10 @@
 
     <string name="security_pref_category">Security</string>
 
+    <string name="delete_button_security_pref_title">Delete Button</string>
+    <string name="on_delete_button_security_preference">Allow email to be deleted from the popup notification</string>
+    <string name="off_delete_button_security_preference">Email can not be deleted from the popup notification</string>
+
     <string name="keyguard_security_pref_title">Keyguard Unlock</string>
     <string name="on_keyguard_security_preference">Unlocking of the keyguard required after popup</string>
     <string name="off_keyguard_security_preference">Unlocking of the keyguard not required after popup</string>

@@ -27,7 +27,7 @@
     <PreferenceCategory android:title="@string/filtering_pref_category">
         <CheckBoxPreference
                 android:title="@string/keyguard_filtering_preference_title"
-                android:defaultValue="off"
+                android:defaultValue="false"
                 android:summary="@string/off_keyguard_preference"
                 android:key="keyguardFiltering" />
         <ListPreference
@@ -39,11 +39,16 @@
                 android:entryValues="@array/contactFilterEntryValues" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/security_pref_category">
-    <CheckBoxPreference
-            android:title="@string/keyguard_security_pref_title"
-            android:defaultValue="off"
-            android:summary="@string/off_keyguard_security_preference"
-            android:key="keyguardSecurity" />
+        <CheckBoxPreference
+                android:title="@string/delete_button_security_pref_title"
+                android:defaultValue="true"
+                android:summary="@string/on_delete_button_security_preference"
+                android:key="deleteButtonSecurity" />
+        <CheckBoxPreference
+                android:title="@string/keyguard_security_pref_title"
+                android:defaultValue="false"
+                android:summary="@string/off_keyguard_security_preference"
+                android:key="keyguardSecurity" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/misc_pref_category">
         <com.blntsoft.emailpopup.DialogPreference

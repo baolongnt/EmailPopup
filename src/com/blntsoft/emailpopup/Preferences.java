@@ -18,12 +18,13 @@ public class Preferences
     extends PreferenceActivity
     implements OnSharedPreferenceChangeListener {
 
-    public static final String ON_OFF_SWITCH_PREF_KEY      = "onOffSwitch";
-    public static final String CONTACT_FILTERING_PREF_KEY  = "contactFiltering";
-    public static final String KEYGUARD_FILTERING_PREF_KEY = "keyguardFiltering";
-    public static final String TIME_DISPLAY_PREF_KEY       = "timeDisplay";
-    public static final String KEYGUARD_SECURITY_PREF_KEY  = "keyguardSecurity";
-    public static final String ABOUT_PREF_KEY              = "about";
+    public static final String ON_OFF_SWITCH_PREF_KEY               = "onOffSwitch";
+    public static final String CONTACT_FILTERING_PREF_KEY           = "contactFiltering";
+    public static final String KEYGUARD_FILTERING_PREF_KEY          = "keyguardFiltering";
+    public static final String TIME_DISPLAY_PREF_KEY                = "timeDisplay";
+    public static final String DELETE_BUTTON_SECURITY_PREF_KEY      = "deleteButtonSecurity";
+    public static final String KEYGUARD_SECURITY_PREF_KEY           = "keyguardSecurity";
+    public static final String ABOUT_PREF_KEY                       = "about";
 
     public static final String ALL_FILTERING_PREF_VALUE                     = "All";
     public static final String CONTACTS_FILTERING_PREF_VALUE                = "ContactsOnly";
@@ -40,6 +41,7 @@ public class Preferences
     private CheckBoxPreference keyguardPreference;
     private ListPreference timeDisplayPreference;
     private CheckBoxPreference keyguardSecurityPreference;
+    private CheckBoxPreference deleteButtonSecurityPreference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,7 @@ public class Preferences
         keyguardPreference = (CheckBoxPreference)getPreferenceScreen().findPreference(KEYGUARD_FILTERING_PREF_KEY);
         timeDisplayPreference = (ListPreference)getPreferenceScreen().findPreference(TIME_DISPLAY_PREF_KEY);
         keyguardSecurityPreference = (CheckBoxPreference)getPreferenceScreen().findPreference(KEYGUARD_SECURITY_PREF_KEY);
+        deleteButtonSecurityPreference = (CheckBoxPreference)getPreferenceScreen().findPreference(DELETE_BUTTON_SECURITY_PREF_KEY);
 
         String version;
         PackageManager pm = this.getPackageManager();
@@ -97,6 +100,13 @@ public class Preferences
                             : getString(R.string.off_keyguard_security_preference)
             );
         }
+        else if (key.equals(DELETE_BUTTON_SECURITY_PREF_KEY)) {
+            deleteButtonSecurityPreference.setSummary(
+                    sharedPreferences.getBoolean(key, true) ?
+                            getString(R.string.on_delete_button_security_preference)
+                            : getString(R.string.off_delete_button_security_preference)
+            );
+        }
     }//onSharedPreferenceChanged
 
     @Override
@@ -123,6 +133,11 @@ public class Preferences
                 sharedPreferences.getBoolean(KEYGUARD_SECURITY_PREF_KEY, false) ?
                         getString(R.string.on_keyguard_security_preference)
                         : getString(R.string.off_keyguard_security_preference)
+        );
+        deleteButtonSecurityPreference.setSummary(
+                sharedPreferences.getBoolean(DELETE_BUTTON_SECURITY_PREF_KEY, true) ?
+                        getString(R.string.on_delete_button_security_preference)
+                        : getString(R.string.off_delete_button_security_preference)
         );
 
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);

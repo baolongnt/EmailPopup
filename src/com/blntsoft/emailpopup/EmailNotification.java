@@ -74,7 +74,15 @@ public class EmailNotification
         viewButton.setOnClickListener(this);
 
         deleteButton = (Button)findViewById(R.id.delete_button);
-        deleteButton.setOnClickListener(this);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(EmailNotification.this);
+        boolean deleteButtonSecurityPreference = preferences.getBoolean(Preferences.DELETE_BUTTON_SECURITY_PREF_KEY, true);
+        if (deleteButtonSecurityPreference) {
+            deleteButton.setVisibility(View.VISIBLE);
+            deleteButton.setOnClickListener(this);
+        }
+        else {
+            deleteButton.setVisibility(View.GONE);
+        }
 
         closeButton = (Button)findViewById(R.id.close_button);
         closeButton.setOnClickListener(this);
@@ -145,9 +153,9 @@ public class EmailNotification
         }
         else {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(EmailNotification.this);
-            boolean keyguardSecurity = preferences.getBoolean(Preferences.KEYGUARD_SECURITY_PREF_KEY, false);
+            boolean keyguardSecurityPreference = preferences.getBoolean(Preferences.KEYGUARD_SECURITY_PREF_KEY, false);
 
-            if (keyguardSecurity) {
+            if (keyguardSecurityPreference) {
                 final View finalView = view;
                 KeyguardManager.secureRelease(this, new KeyguardManager.SecureReleaseCallback() {
                     @Override
