@@ -68,7 +68,7 @@
     <string name="about_pref_summary">About Email Popup</string>
     <string name="about_text">Author: Bao-Long Nguyen-Trong\n
 \n
-Email Popup is a simple app that displays a dialog for a few seconds every time an email is received.
+Email Popup is an open source app that displays a dialog for a few seconds every time an email is received.
 If the phone is sleeping and/or the screen locked,
 Email Popup will wake up the phone and unlock the screen when displaying the popups.\n
 \n
@@ -87,9 +87,14 @@ For more info:\n
 http://www.blntsoft.com/email-popup\n
 \n
 For comments and feedback, feel free to email me at email-popup@blntsoft.com\n
+or file an issue here\n
+https://github.com/baolongnt/EmailPopup/issues\n
 \n
 Check out the app blog for news:\n
 http://www.blntsoft.com/category/email-popup\n
+\n
+The source code can be found on GitHub (pull requests are welcome!)\n
+https://github.com/baolongnt/EmailPopup\n
 \n
 Icon Credits: Maury Boswell, http://www.mauryboswell.com\n
 based on Simplicio http://www.smashingmagazine.com/2008/09/02/simplicio-a-free-icon-set\n
