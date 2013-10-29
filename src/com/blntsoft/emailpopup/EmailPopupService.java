@@ -20,7 +20,6 @@ public class EmailPopupService
     extends Service
     implements Runnable {
 
-    private static final List<EmailMessage> emailMessageQueue = new ArrayList<EmailMessage>();
     private Thread workerThread;
 
     @Override
@@ -32,6 +31,7 @@ public class EmailPopupService
         try {
             Log.e(EmailPopup.LOG_TAG, "onStart()");
 
+            EmailMessageQueue emailMessageQueue = EmailMessageQueue.getInstance();
             synchronized (emailMessageQueue) {
                 if (intent != null) {
                     emailMessageQueue.add((EmailMessage)intent.getSerializableExtra(EmailPopup.EMAIL_MESSAGE_EXTRA));
@@ -85,6 +85,7 @@ public class EmailPopupService
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(EmailPopupService.this);
         int displayTime = Integer.parseInt(preferences.getString(Preferences.TIME_DISPLAY_PREF_KEY, getString(R.string.time_display_preference_default)));
 
+        EmailMessageQueue emailMessageQueue = EmailMessageQueue.getInstance();
         while (true) {
             EmailMessage emailMessage = null;
             synchronized(emailMessageQueue) {
@@ -107,11 +108,14 @@ public class EmailPopupService
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
             i.putExtra(EmailPopup.EMAIL_MESSAGE_EXTRA, emailMessage);
             EmailPopupService.this.startActivity(i);
-            try {
-                Thread.sleep(displayTime * 1000);
-            }
-            catch (InterruptedException e) {
-                Log.e(EmailPopup.LOG_TAG, null, e);
+
+            synchronized(emailMessageQueue) {
+                try {
+                    emailMessageQueue.wait(displayTime * 1000);
+                }
+                catch (InterruptedException e) {
+                    Log.e(EmailPopup.LOG_TAG, null, e);
+                }
             }
         }
     }//run

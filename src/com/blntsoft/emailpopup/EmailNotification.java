@@ -150,6 +150,10 @@ public class EmailNotification
     @Override
     public void onClick(View view) {
         if (view==closeButton) {
+            EmailMessageQueue emailMessageQueue = EmailMessageQueue.getInstance();
+            synchronized (emailMessageQueue) {
+                emailMessageQueue.notify();
+            }
         }
         else {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(EmailNotification.this);
