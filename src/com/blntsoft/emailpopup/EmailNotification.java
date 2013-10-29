@@ -120,29 +120,35 @@ public class EmailNotification
         notificationArea.setOnTouchListener(new OnSwipeTouchListener(this) {
             @Override
             public void onSwipeRight() {
-                Log.d(EmailPopup.LOG_TAG, "onSwipeRight");
+                Log.v(EmailPopup.LOG_TAG, "onSwipeRight");
                 EmailNotification.this.onClick(closeButton);
             }
 
             @Override
             public void onSwipeLeft() {
-                Log.d(EmailPopup.LOG_TAG, "onSwipeLeft");
+                Log.v(EmailPopup.LOG_TAG, "onSwipeLeft");
                 EmailNotification.this.onClick(closeButton);
             }
 
             @Override
             public void onSwipeTop() {
-                Log.d(EmailPopup.LOG_TAG, "onSwipeTop");
+                Log.v(EmailPopup.LOG_TAG, "onSwipeTop");
             }
 
             @Override
             public void onSwipeBottom() {
-                Log.d(EmailPopup.LOG_TAG, "onSwipeBottom");
+                Log.v(EmailPopup.LOG_TAG, "onSwipeBottom");
             }
         });
 
         isDestroyed = false;
-        if (message.autoClose) {
+        EmailMessageQueue emailMessageQueue = EmailMessageQueue.getInstance();
+        int queueSize = -1;
+        synchronized(emailMessageQueue) {
+            queueSize = emailMessageQueue.size();
+        }
+        if (message.autoClose
+            && queueSize == 0) {
             new Thread(this).start();
         }
     }//onCreate
@@ -193,8 +199,11 @@ public class EmailNotification
 
     @Override
     public void onDestroy() {
-        Log.e(EmailPopup.LOG_TAG, "EmailNotification.onDestroy()");
-        isDestroyed = true;
+        Log.v(EmailPopup.LOG_TAG, "EmailNotification.onDestroy()");
+        synchronized(this) {
+            isDestroyed = true;
+            this.notify();
+        }
         super.onDestroy();
     }
 
@@ -203,20 +212,23 @@ public class EmailNotification
         try {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(EmailNotification.this);
             int displayTime = Integer.parseInt(preferences.getString(Preferences.TIME_DISPLAY_PREF_KEY, getString(R.string.time_display_preference_default)));
-            Thread.sleep((int)(displayTime * 1000 * 1.1));
-            if (!isDestroyed) {
-                finish();
+            synchronized(this) {
+                this.wait((int)(displayTime * 1000));
+                if (!isDestroyed) {
+                    finish();
+                }
             }
         }
         catch (Exception e) {
             Log.e(EmailPopup.LOG_TAG, null, e);
         }
+        Log.v(EmailPopup.LOG_TAG, "EmailNotification thread done");
     }//run
 
     private class FetchContactPhotoTask extends AsyncTask<String, Integer, Bitmap> {
         @Override
         protected Bitmap doInBackground(String... params) {
-            Log.v(EmailPopup.LOG_TAG, "Loading contact photo in background... " + message.contactId);
+            Log.d(EmailPopup.LOG_TAG, "Loading contact photo in background... " + message.contactId);
             int defaultPhotoResId;
             if ((System.currentTimeMillis() % 2)==0) {
                 defaultPhotoResId = R.drawable.ic_contact_picture;
@@ -236,7 +248,7 @@ public class EmailNotification
 
         @Override
         protected void onPostExecute(Bitmap result) {
-            Log.v(EmailPopup.LOG_TAG, "Done loading contact photo");
+            Log.d(EmailPopup.LOG_TAG, "Done loading contact photo");
             if (result != null) {
                 photoImageView.setImageBitmap(result);
             }

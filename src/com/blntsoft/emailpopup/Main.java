@@ -126,7 +126,7 @@ public class Main
                         intent.putExtra(INTENT_PREFIX+EmailPopup.EXTRA_SUBJECT, "Email Popup Rocks! #" + i);
                         intent.putExtra(INTENT_PREFIX+EmailPopup.EXTRA_SENT_DATE, new Date());
                         Main.this.sendBroadcast(intent);
-                        Log.e(INTENT_PREFIX+EmailPopup.LOG_TAG, i + "th broadcast sent");
+                        Log.i(INTENT_PREFIX+EmailPopup.LOG_TAG, i + "th broadcast sent");
                     }
                 }//run
             };//Thread

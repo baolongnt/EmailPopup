@@ -29,19 +29,19 @@ public class EmailPopupService
 
     public void handleCommand(Intent intent) {
         try {
-            Log.e(EmailPopup.LOG_TAG, "onStart()");
+            Log.v(EmailPopup.LOG_TAG, "onStart()");
 
             EmailMessageQueue emailMessageQueue = EmailMessageQueue.getInstance();
             synchronized (emailMessageQueue) {
                 if (intent != null) {
                     emailMessageQueue.add((EmailMessage)intent.getSerializableExtra(EmailPopup.EMAIL_MESSAGE_EXTRA));
-                    Log.e(EmailPopup.LOG_TAG, "Message added to queue");
+                    Log.v(EmailPopup.LOG_TAG, "Message added to queue");
 
                     if (workerThread ==null
                         || !workerThread.isAlive()) {
                         workerThread = new Thread(this);
                         workerThread.start();
-                        Log.e(EmailPopup.LOG_TAG, "Worker thread started");
+                        Log.v(EmailPopup.LOG_TAG, "Worker thread started");
                     }
 
                     WakeLockManager.acquirePartialWakeLock(this);
