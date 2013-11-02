@@ -24,6 +24,12 @@ The latest version can be found on the Google Play store
 https://play.google.com/store/apps/details?id=com.blntsoft.emailpopup
 
 
+0.2.2
+  * Delete button now optional
+  * Option for keyguard before view and delete email
+  * Clicking on 'Close' opens next popup if any
+  * Improved stability
+
 0.2.1:
   * Added 'Delete' button on popup
   * Minor UI fixes
