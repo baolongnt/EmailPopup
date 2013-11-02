@@ -1,6 +1,7 @@
 package com.blntsoft.emailpopup;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -193,7 +194,19 @@ public class EmailNotification
         else {
             Intent intent = new Intent(Intent.ACTION_VIEW, getIntent().getData());
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            this.startActivity(intent);
+            try {
+                this.startActivity(intent);
+            }
+            catch (ActivityNotFoundException e) {
+                Log.e(EmailPopup.LOG_TAG, null, e);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(EmailNotification.this, getString(R.string.view_email_error_toast), Toast.LENGTH_LONG).show();
+                    }
+                });
+
+            }
         }
     }//onClickSecuredButton
 
@@ -255,26 +268,37 @@ public class EmailNotification
         }
     }//FetchContactPhotoTask
 
-    private class DeleteEmailTask extends AsyncTask<String, Void, Void> {
+    private class DeleteEmailTask extends AsyncTask<String, Void, Boolean> {
         @Override
-        protected Void doInBackground(String... params) {
+        protected Boolean doInBackground(String... params) {
             String delUriStr = params[0];
             Log.v(EmailPopup.LOG_TAG, delUriStr);
 
             Uri delUri = Uri.parse(delUriStr);
-            getContentResolver().delete(delUri , null, null);
-            return null;
+            try {
+                getContentResolver().delete(delUri , null, null);
+                return true;
+            }
+            catch (IllegalArgumentException e) {
+                Log.e(EmailPopup.LOG_TAG, null, e);
+                return false;
+            }
         }
 
         @Override
-        public void onPostExecute(Void param) {
-            CharSequence fromText = fromNameTextView.getText();
-            if (fromText == null
-                    || fromText.length() == 0) {
-                fromText = fromEmailTextView.getText();
+        public void onPostExecute(Boolean success) {
+            if (success) {
+                CharSequence fromText = fromNameTextView.getText();
+                if (fromText == null
+                        || fromText.length() == 0) {
+                    fromText = fromEmailTextView.getText();
+                }
+                String toastMessage = getString(R.string.delete_email_confirmation_toast, fromText, subjectTextView.getText());
+                Toast.makeText(EmailNotification.this, toastMessage, Toast.LENGTH_LONG).show();
             }
-            String toastMessage = getString(R.string.delete_email_confirmation_toast, fromText, subjectTextView.getText());
-            Toast.makeText(EmailNotification.this, toastMessage, Toast.LENGTH_LONG).show();
+            else {
+                Toast.makeText(EmailNotification.this, getString(R.string.delete_email_error_toast), Toast.LENGTH_LONG).show();
+            }
         }
 
     }

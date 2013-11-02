@@ -9,7 +9,12 @@
     <string name="delete_button_text">Delete</string>
     <string name="close_button_text">Close</string>
 
+    <!-- Toast -->
+
     <string name="delete_email_confirmation_toast">Email %1$s: %2$s deleted</string>
+
+    <string name="view_email_error_toast">Unable to open K-9 Mail. Do you have the latest version of K-9 Mail installed?</string>
+    <string name="delete_email_error_toast">Unable to delete email. Do you have the latest version of K-9 Mail installed?</string>
 
     <!-- Preferences -->
 
