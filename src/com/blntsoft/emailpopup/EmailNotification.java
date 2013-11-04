@@ -188,8 +188,13 @@ public class EmailNotification
         if (view==deleteButton) {
             Uri viewEmailUri = getIntent().getData();
             String viewEmailUriStr = viewEmailUri.toString();
-            String delEmailUriStr = DELETE_URI_PREFIX + viewEmailUriStr.substring(VIEW_URI_PREFIX.length());
-            new DeleteEmailTask().execute(delEmailUriStr);
+            final String delEmailUriStr = DELETE_URI_PREFIX + viewEmailUriStr.substring(VIEW_URI_PREFIX.length());
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    new DeleteEmailTask().execute(delEmailUriStr);
+                }
+            });
         }
         else {
             Intent intent = new Intent(Intent.ACTION_VIEW, getIntent().getData());
