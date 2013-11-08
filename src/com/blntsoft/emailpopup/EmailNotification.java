@@ -284,7 +284,7 @@ public class EmailNotification
                 getContentResolver().delete(delUri , null, null);
                 return true;
             }
-            catch (IllegalArgumentException e) {
+            catch (Exception e) {
                 Log.e(EmailPopup.LOG_TAG, null, e);
                 return false;
             }
